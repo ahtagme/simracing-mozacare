@@ -1,0 +1,10 @@
+_worker.js
+wrangler.toml
+schema.sql
+functions/
+.github/
+.gitignore
+.assetsignore
+*.md
+*.txt
+.git/

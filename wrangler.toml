@@ -1,6 +1,12 @@
 name = "simracing-mozacare"
+main = "_worker.js"
 compatibility_date = "2025-04-30"
-pages_build_output_dir = "."
+compatibility_flags = ["nodejs_compat"]
+
+[assets]
+directory = "."
+binding = "ASSETS"
+not_found_handling = "404-page"
 
 [[d1_databases]]
 binding = "DB"
