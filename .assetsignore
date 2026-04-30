@@ -1,10 +1,10 @@
 _worker.js
 wrangler.toml
 schema.sql
-functions/
 .github/
 .gitignore
 .assetsignore
+.wrangler/
 *.md
 *.txt
 .git/
