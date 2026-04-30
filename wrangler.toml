@@ -1,0 +1,8 @@
+name = "simracing-mozacare"
+compatibility_date = "2025-04-30"
+pages_build_output_dir = "."
+
+[[d1_databases]]
+binding = "DB"
+database_name = "simracing_orders"
+database_id = "8188a701-2eba-45e9-b46f-b278bab1b5d5"
