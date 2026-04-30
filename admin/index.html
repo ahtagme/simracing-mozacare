@@ -6,7 +6,6 @@
 <meta name="theme-color" content="#07070a">
 <title>AHTA Admin Dashboard</title>
 <meta name="robots" content="noindex, nofollow">
-
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
@@ -31,6 +30,7 @@
   --warning: #f59e0b;
   --info: #3b82f6;
   --danger: #ef4444;
+  --sidebar-w: 240px;
 }
 
 * { margin:0; padding:0; box-sizing:border-box; -webkit-font-smoothing: antialiased; }
@@ -68,19 +68,12 @@ body {
   width: 56px; height: 56px;
   border-radius: 14px;
   background: linear-gradient(135deg, var(--primary), var(--primary-2));
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: flex; align-items: center; justify-content: center;
   font-size: 28px;
   margin: 0 auto 20px;
   box-shadow: 0 8px 32px var(--primary-glow);
 }
-.login-card h1 {
-  font-size: 24px;
-  font-weight: 800;
-  letter-spacing: -0.02em;
-  margin-bottom: 6px;
-}
+.login-card h1 { font-size: 24px; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 6px; }
 .login-card p { font-size: 13px; color: var(--text-muted); margin-bottom: 24px; }
 .login-card input {
   width: 100%;
@@ -94,80 +87,203 @@ body {
   font-family: inherit;
   transition: all .15s;
 }
-.login-card input:focus {
-  outline: none;
-  border-color: var(--primary);
-  box-shadow: 0 0 0 3px rgba(255,51,85,.1);
-}
+.login-card input:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(255,51,85,.1); }
 .login-card button {
   width: 100%;
   background: linear-gradient(135deg, var(--primary), var(--primary-2));
-  color: white;
-  border: none;
-  padding: 13px;
-  border-radius: 10px;
-  font-weight: 700;
-  font-size: 14px;
-  cursor: pointer;
-  font-family: inherit;
+  color: white; border: none; padding: 13px; border-radius: 10px;
+  font-weight: 700; font-size: 14px; cursor: pointer; font-family: inherit;
   transition: all .15s;
 }
 .login-card button:hover { transform: translateY(-1px); box-shadow: 0 8px 24px var(--primary-glow); }
 .login-card button:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
-.login-err {
-  color: #fca5a5;
-  font-size: 13px;
-  margin-top: 12px;
-  min-height: 18px;
-}
+.login-err { color: #fca5a5; font-size: 13px; margin-top: 12px; min-height: 18px; }
 
-/* === DASHBOARD LAYOUT === */
-.dash {
-  display: none;
-  min-height: 100vh;
-}
-.dash.active { display: block; }
+/* === LAYOUT === */
+.app { display: none; min-height: 100vh; }
+.app.active { display: flex; }
 
-.topbar {
-  position: sticky;
-  top: 0;
-  z-index: 30;
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  background: rgba(7, 7, 10, 0.8);
-  border-bottom: 1px solid var(--border);
-  padding: 14px 24px;
-}
-.topbar-inner {
-  max-width: 1400px;
-  margin: 0 auto;
+/* === SIDEBAR === */
+.sidebar {
+  width: var(--sidebar-w);
+  background: var(--bg-1);
+  border-right: 1px solid var(--border);
+  position: fixed;
+  top: 0; left: 0; bottom: 0;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 16px;
-  flex-wrap: wrap;
+  flex-direction: column;
+  z-index: 50;
+  transition: transform .25s ease;
+}
+.sidebar-header {
+  padding: 20px;
+  border-bottom: 1px solid var(--border);
 }
 .brand {
   display: flex;
   align-items: center;
   gap: 12px;
+  text-decoration: none;
+  color: var(--text);
 }
 .brand-mark {
   width: 36px; height: 36px;
   border-radius: 10px;
   background: linear-gradient(135deg, var(--primary), var(--primary-2));
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: flex; align-items: center; justify-content: center;
   font-size: 16px;
   box-shadow: 0 0 20px var(--primary-glow);
+  flex-shrink: 0;
 }
 .brand-text { line-height: 1.2; }
 .brand-name { font-weight: 800; font-size: 15px; letter-spacing: -0.02em; }
-.brand-sub { font-size: 11px; color: var(--text-muted); }
+.brand-sub { font-size: 11px; color: var(--text-muted); margin-top: 1px; }
 
-.topbar-actions { display: flex; gap: 8px; }
+.sidebar-nav { padding: 12px 8px; flex: 1; overflow-y: auto; }
+.nav-section {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: 12px 12px 6px;
+}
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 12px;
+  border-radius: 8px;
+  color: var(--text-dim);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all .15s;
+  margin-bottom: 2px;
+  border: none;
+  background: transparent;
+  width: 100%;
+  font-family: inherit;
+  text-align: left;
+  position: relative;
+}
+.nav-item:hover { background: var(--bg-2); color: var(--text); }
+.nav-item.active {
+  background: linear-gradient(135deg, rgba(255,51,85,.12), rgba(255,107,53,.06));
+  color: var(--text);
+  font-weight: 600;
+}
+.nav-item.active::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 8px; bottom: 8px;
+  width: 3px;
+  background: var(--primary);
+  border-radius: 0 3px 3px 0;
+}
+.nav-item .icon {
+  width: 18px; height: 18px;
+  flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+}
+.nav-item .badge {
+  margin-left: auto;
+  background: var(--primary);
+  color: white;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: 50px;
+  min-width: 18px;
+  text-align: center;
+}
 
+.sidebar-footer {
+  padding: 14px;
+  border-top: 1px solid var(--border);
+}
+.user-card {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px;
+  border-radius: 8px;
+  background: var(--bg-2);
+}
+.user-avatar {
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--primary), var(--primary-2));
+  display: flex; align-items: center; justify-content: center;
+  font-size: 13px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+.user-info { flex: 1; min-width: 0; }
+.user-name { font-size: 12px; font-weight: 600; }
+.user-role { font-size: 11px; color: var(--text-muted); }
+.logout-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 6px;
+  font-family: inherit;
+  transition: all .15s;
+}
+.logout-btn:hover { background: var(--bg-3); color: var(--danger); }
+
+/* === MAIN === */
+.main {
+  flex: 1;
+  margin-left: var(--sidebar-w);
+  min-height: 100vh;
+  background: var(--bg-base);
+}
+.main-header {
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  background: rgba(7, 7, 10, 0.85);
+  border-bottom: 1px solid var(--border);
+  padding: 14px 28px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+}
+.menu-toggle {
+  display: none;
+  background: var(--bg-2);
+  border: 1px solid var(--border);
+  width: 36px; height: 36px;
+  border-radius: 8px;
+  color: var(--text);
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+}
+
+.page-title-bar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.page-title {
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+.page-breadcrumb {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.header-actions { display: flex; gap: 8px; }
 .btn {
   display: inline-flex;
   align-items: center;
@@ -182,6 +298,8 @@ body {
   text-decoration: none;
   transition: all .15s;
   white-space: nowrap;
+  background: transparent;
+  color: var(--text);
 }
 .btn-primary {
   background: linear-gradient(135deg, var(--primary), var(--primary-2));
@@ -195,54 +313,40 @@ body {
   border-color: var(--border-bright);
 }
 .btn-secondary:hover { background: var(--bg-3); }
-.btn-ghost {
-  background: transparent;
-  color: var(--text-dim);
-}
+.btn-ghost { color: var(--text-dim); }
 .btn-ghost:hover { background: var(--bg-2); color: var(--text); }
-.btn-danger {
-  background: rgba(239,68,68,.1);
-  color: #fca5a5;
-  border-color: rgba(239,68,68,.2);
-}
-.btn-danger:hover { background: rgba(239,68,68,.15); color: #f87171; }
+.btn-danger { background: rgba(239,68,68,.1); color: #fca5a5; border-color: rgba(239,68,68,.2); }
+.btn-danger:hover { background: rgba(239,68,68,.15); }
 .btn-sm { padding: 6px 10px; font-size: 12px; }
-.btn-icon-only { padding: 6px 8px; }
 
-/* === MAIN CONTENT === */
-.main {
-  max-width: 1400px;
-  margin: 0 auto;
-  padding: 32px 24px;
-}
+.content { padding: 28px; }
 
-.page-header {
+.section-heading {
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
-  margin-bottom: 28px;
+  margin-bottom: 24px;
   gap: 16px;
   flex-wrap: wrap;
 }
-.page-title {
-  font-size: 28px;
+.section-heading h1 {
+  font-size: 26px;
   font-weight: 800;
   letter-spacing: -0.03em;
   margin-bottom: 4px;
 }
-.page-subtitle {
+.section-heading p {
   font-size: 14px;
   color: var(--text-muted);
 }
 
-/* === STATS GRID === */
+/* === STATS === */
 .stats-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
   gap: 12px;
-  margin-bottom: 28px;
+  margin-bottom: 24px;
 }
-
 .stat-card {
   background: linear-gradient(180deg, var(--bg-1), var(--bg-2));
   border: 1px solid var(--border);
@@ -252,7 +356,7 @@ body {
   overflow: hidden;
   transition: all .2s;
 }
-.stat-card:hover { border-color: var(--border-bright); transform: translateY(-1px); }
+.stat-card:hover { border-color: var(--border-bright); }
 .stat-card.featured {
   background:
     radial-gradient(circle at top right, rgba(16,185,129,.1), transparent 60%),
@@ -262,9 +366,7 @@ body {
 .stat-icon {
   width: 32px; height: 32px;
   border-radius: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: flex; align-items: center; justify-content: center;
   font-size: 16px;
   margin-bottom: 12px;
 }
@@ -273,22 +375,18 @@ body {
 .stat-icon.success { background: rgba(16,185,129,.1); color: var(--success); border: 1px solid rgba(16,185,129,.2); }
 .stat-icon.danger { background: rgba(239,68,68,.1); color: var(--danger); border: 1px solid rgba(239,68,68,.2); }
 .stat-icon.primary { background: rgba(255,51,85,.1); color: var(--primary); border: 1px solid rgba(255,51,85,.2); }
-
-.stat-label {
-  font-size: 11px;
-  color: var(--text-muted);
-  font-weight: 600;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  margin-bottom: 4px;
-}
-.stat-value {
-  font-size: 26px;
-  font-weight: 800;
-  letter-spacing: -0.03em;
-  font-feature-settings: 'tnum';
-}
+.stat-label { font-size: 11px; color: var(--text-muted); font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 4px; }
+.stat-value { font-size: 26px; font-weight: 800; letter-spacing: -0.03em; font-feature-settings: 'tnum'; }
 .stat-value.success { color: var(--success); }
+.stat-trend {
+  font-size: 11px;
+  margin-top: 6px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.stat-trend.up { color: var(--success); }
+.stat-trend.down { color: var(--danger); }
 
 /* === FILTERS === */
 .filter-bar {
@@ -317,7 +415,6 @@ body {
   background-position: 12px center;
 }
 .search-input:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(255,51,85,.1); }
-
 .filter-select {
   background: var(--bg-base);
   border: 1px solid var(--border);
@@ -331,268 +428,172 @@ body {
 .filter-select:focus { outline: none; border-color: var(--primary); }
 
 /* === TABLE === */
-.table-container {
-  background: var(--bg-1);
-  border: 1px solid var(--border);
-  border-radius: 14px;
-  overflow: hidden;
-}
+.table-container { background: var(--bg-1); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; }
 .table-wrap { overflow-x: auto; }
 table { width: 100%; border-collapse: collapse; }
-
 thead { background: var(--bg-2); }
-th {
-  padding: 12px 16px;
-  text-align: left;
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  color: var(--text-muted);
-  border-bottom: 1px solid var(--border);
-  white-space: nowrap;
-}
-
-td {
-  padding: 14px 16px;
-  font-size: 13px;
-  border-bottom: 1px solid var(--border);
-  vertical-align: middle;
-}
+th { padding: 12px 16px; text-align: left; font-size: 11px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; color: var(--text-muted); border-bottom: 1px solid var(--border); white-space: nowrap; }
+td { padding: 14px 16px; font-size: 13px; border-bottom: 1px solid var(--border); vertical-align: middle; }
 tbody tr { transition: background .15s; cursor: pointer; }
 tbody tr:hover { background: var(--bg-hover); }
 tbody tr:last-child td { border-bottom: none; }
 
-.id-cell {
-  font-family: 'JetBrains Mono', monospace;
-  color: var(--text-muted);
-  font-size: 12px;
-  font-weight: 600;
-}
-
+.id-cell { font-family: 'JetBrains Mono', monospace; color: var(--text-muted); font-size: 12px; font-weight: 600; }
 .customer-cell { min-width: 180px; }
 .customer-name { font-weight: 600; margin-bottom: 2px; }
-.customer-meta {
-  font-size: 12px;
-  color: var(--text-muted);
-  display: flex;
-  align-items: center;
-  gap: 4px;
-}
-.wa-link {
-  color: var(--success);
-  text-decoration: none;
-  font-weight: 500;
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-}
+.customer-meta { font-size: 12px; color: var(--text-muted); display: flex; align-items: center; gap: 4px; flex-wrap: wrap; }
+.wa-link { color: var(--success); text-decoration: none; font-weight: 500; display: inline-flex; align-items: center; gap: 4px; }
 .wa-link:hover { text-decoration: underline; }
+.price-cell { font-weight: 700; font-feature-settings: 'tnum'; color: var(--text); }
+.date-cell { font-size: 12px; color: var(--text-dim); white-space: nowrap; }
 
-.price-cell {
-  font-weight: 700;
-  font-feature-settings: 'tnum';
-  color: var(--text);
-}
-
-.date-cell {
-  font-size: 12px;
-  color: var(--text-dim);
-  white-space: nowrap;
-}
-
-.status-pill {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  padding: 4px 10px;
-  border-radius: 50px;
-  font-size: 11px;
-  font-weight: 600;
-  text-transform: capitalize;
-}
-.status-pill::before {
-  content: '';
-  width: 6px; height: 6px;
-  border-radius: 50%;
-  background: currentColor;
-}
+.status-pill { display: inline-flex; align-items: center; gap: 5px; padding: 4px 10px; border-radius: 50px; font-size: 11px; font-weight: 600; text-transform: capitalize; }
+.status-pill::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
 .status-pill.pending { background: rgba(245,158,11,.1); color: var(--warning); }
 .status-pill.progress { background: rgba(59,130,246,.1); color: var(--info); }
 .status-pill.done { background: rgba(16,185,129,.1); color: var(--success); }
 .status-pill.cancel { background: rgba(239,68,68,.1); color: var(--danger); }
 
-.status-select {
-  background: var(--bg-2);
-  border: 1px solid var(--border);
-  color: var(--text);
-  padding: 5px 10px;
-  border-radius: 6px;
-  font-size: 12px;
-  font-family: inherit;
-  cursor: pointer;
-}
+.status-select { background: var(--bg-2); border: 1px solid var(--border); color: var(--text); padding: 5px 10px; border-radius: 6px; font-size: 12px; font-family: inherit; cursor: pointer; }
 .status-select:focus { outline: none; border-color: var(--primary); }
 
-.empty-state {
-  text-align: center;
-  padding: 80px 20px;
-  color: var(--text-muted);
-}
+.empty-state { text-align: center; padding: 60px 20px; color: var(--text-muted); }
 .empty-state .icon { font-size: 48px; margin-bottom: 16px; opacity: 0.5; }
 .empty-state .title { font-size: 16px; font-weight: 600; margin-bottom: 4px; color: var(--text-dim); }
 .empty-state .sub { font-size: 13px; }
 
-.loading {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 60px;
-  color: var(--text-muted);
-}
-.spinner {
-  width: 24px; height: 24px;
-  border: 2px solid var(--border);
-  border-top-color: var(--primary);
-  border-radius: 50%;
-  animation: spin 0.8s linear infinite;
-}
+.loading { display: flex; justify-content: center; align-items: center; padding: 60px; color: var(--text-muted); }
+.spinner { width: 24px; height: 24px; border: 2px solid var(--border); border-top-color: var(--primary); border-radius: 50%; animation: spin 0.8s linear infinite; }
 @keyframes spin { to { transform: rotate(360deg); } }
 
-/* === MODAL DETAIL === */
-.modal-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,.85);
-  backdrop-filter: blur(8px);
-  display: none;
-  align-items: flex-start;
-  justify-content: center;
-  z-index: 100;
+/* === CHART === */
+.chart-wrap {
+  background: var(--bg-1);
+  border: 1px solid var(--border);
+  border-radius: 14px;
   padding: 24px;
-  overflow-y: auto;
-  animation: fadeIn .2s ease;
+  margin-bottom: 16px;
 }
+.chart-title { font-size: 14px; font-weight: 700; margin-bottom: 4px; }
+.chart-sub { font-size: 12px; color: var(--text-muted); margin-bottom: 20px; }
+.bar-chart { display: flex; align-items: flex-end; gap: 8px; height: 180px; }
+.bar {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+.bar-fill {
+  width: 100%;
+  background: linear-gradient(to top, var(--primary), var(--primary-2));
+  border-radius: 6px 6px 0 0;
+  position: relative;
+  min-height: 4px;
+  transition: all .3s;
+}
+.bar-fill::after {
+  content: attr(data-val);
+  position: absolute;
+  top: -22px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 10px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+.bar-label { font-size: 11px; color: var(--text-muted); }
+
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+@media (max-width: 900px) { .grid-2 { grid-template-columns: 1fr; } }
+
+/* === MODAL === */
+.modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,.85); backdrop-filter: blur(8px); display: none; align-items: flex-start; justify-content: center; z-index: 100; padding: 24px; overflow-y: auto; animation: fadeIn .2s ease; }
 .modal-overlay.show { display: flex; }
 @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-
-.modal {
-  background: linear-gradient(180deg, var(--bg-2), var(--bg-1));
-  border: 1px solid var(--border-bright);
-  border-radius: 18px;
-  width: 100%;
-  max-width: 500px;
-  margin: auto;
-  padding: 28px;
-  position: relative;
-  animation: slideUp .25s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 24px 80px rgba(0,0,0,.6);
-}
+.modal { background: linear-gradient(180deg, var(--bg-2), var(--bg-1)); border: 1px solid var(--border-bright); border-radius: 18px; width: 100%; max-width: 500px; margin: auto; padding: 28px; position: relative; animation: slideUp .25s cubic-bezier(0.4, 0, 0.2, 1); box-shadow: 0 24px 80px rgba(0,0,0,.6); }
 @keyframes slideUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
-
-.modal-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  margin-bottom: 20px;
-  padding-bottom: 16px;
-  border-bottom: 1px solid var(--border);
-}
-.modal-title-block .label {
-  font-size: 11px;
-  color: var(--text-muted);
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  margin-bottom: 2px;
-}
-.modal-title-block h3 {
-  font-size: 22px;
-  font-weight: 800;
-  letter-spacing: -0.02em;
-}
-.modal-close {
-  width: 32px; height: 32px;
-  background: var(--bg-3);
-  border: 1px solid var(--border);
-  color: var(--text-dim);
-  border-radius: 8px;
-  font-size: 18px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: inherit;
-  flex-shrink: 0;
-}
+.modal-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 20px; padding-bottom: 16px; border-bottom: 1px solid var(--border); }
+.modal-title-block .label { font-size: 11px; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 2px; }
+.modal-title-block h3 { font-size: 22px; font-weight: 800; letter-spacing: -0.02em; }
+.modal-close { width: 32px; height: 32px; background: var(--bg-3); border: 1px solid var(--border); color: var(--text-dim); border-radius: 8px; font-size: 18px; cursor: pointer; display: flex; align-items: center; justify-content: center; font-family: inherit; flex-shrink: 0; }
 .modal-close:hover { background: var(--primary); color: white; border-color: var(--primary); }
-
 .detail-list { margin-bottom: 20px; }
-.detail-row {
-  display: flex;
-  justify-content: space-between;
-  padding: 10px 0;
-  border-bottom: 1px solid var(--border);
-  gap: 12px;
-}
+.detail-row { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid var(--border); gap: 12px; }
 .detail-row:last-child { border-bottom: none; }
-.detail-label {
-  font-size: 12px;
-  color: var(--text-muted);
-  font-weight: 500;
-  flex-shrink: 0;
-}
-.detail-value {
-  font-size: 13px;
-  font-weight: 600;
-  text-align: right;
-  word-break: break-word;
-  max-width: 65%;
-}
-
-.modal-actions {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
-}
-
-/* === RESPONSIVE === */
-@media (max-width: 768px) {
-  .main { padding: 20px 16px; }
-  .topbar { padding: 12px 16px; }
-  .stats-grid { grid-template-columns: repeat(2, 1fr); }
-  .stat-value { font-size: 22px; }
-  th, td { padding: 10px 8px; font-size: 12px; }
-  .topbar-actions { gap: 4px; }
-  .btn { padding: 7px 10px; font-size: 12px; }
-  .page-title { font-size: 22px; }
-}
-@media (max-width: 480px) {
-  .stats-grid { grid-template-columns: 1fr; }
-  .brand-sub { display: none; }
-}
+.detail-label { font-size: 12px; color: var(--text-muted); font-weight: 500; flex-shrink: 0; }
+.detail-value { font-size: 13px; font-weight: 600; text-align: right; word-break: break-word; max-width: 65%; }
+.modal-actions { display: flex; gap: 8px; flex-wrap: wrap; }
 
 /* === TOAST === */
-.toast {
-  position: fixed;
-  bottom: 24px;
-  right: 24px;
-  background: var(--bg-3);
-  border: 1px solid var(--border-bright);
-  padding: 12px 18px;
-  border-radius: 10px;
-  font-size: 13px;
-  font-weight: 500;
-  z-index: 200;
-  box-shadow: 0 8px 32px rgba(0,0,0,.4);
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  animation: toastIn .3s cubic-bezier(0.4, 0, 0.2, 1);
-}
+.toast { position: fixed; bottom: 24px; right: 24px; background: var(--bg-3); border: 1px solid var(--border-bright); padding: 12px 18px; border-radius: 10px; font-size: 13px; font-weight: 500; z-index: 200; box-shadow: 0 8px 32px rgba(0,0,0,.4); display: flex; align-items: center; gap: 8px; animation: toastIn .3s cubic-bezier(0.4, 0, 0.2, 1); }
 .toast.success { border-color: rgba(16,185,129,.4); }
 .toast.error { border-color: rgba(239,68,68,.4); }
 @keyframes toastIn { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+
+/* === PAGE VIEWS === */
+.page-view { display: none; }
+.page-view.active { display: block; }
+
+/* === CARD === */
+.card {
+  background: var(--bg-1);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 24px;
+  margin-bottom: 16px;
+}
+.card-title {
+  font-size: 14px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+.card-sub {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-bottom: 16px;
+}
+
+/* === SETTINGS === */
+.settings-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--border);
+  gap: 16px;
+}
+.settings-row:last-child { border-bottom: none; }
+.settings-info { flex: 1; }
+.settings-label { font-size: 14px; font-weight: 600; margin-bottom: 2px; }
+.settings-desc { font-size: 12px; color: var(--text-muted); }
+
+/* === RESPONSIVE === */
+@media (max-width: 900px) {
+  .sidebar { transform: translateX(-100%); }
+  .sidebar.open { transform: translateX(0); box-shadow: 0 0 40px rgba(0,0,0,.6); }
+  .main { margin-left: 0; }
+  .menu-toggle { display: flex; }
+  .content { padding: 20px 16px; }
+  .stats-grid { grid-template-columns: repeat(2, 1fr); }
+  .stat-value { font-size: 22px; }
+  .header-actions .btn span:not(.icon) { display: none; }
+  .header-actions .btn { padding: 8px; }
+}
+.sidebar-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.5);
+  z-index: 40;
+}
+.sidebar-overlay.show { display: block; }
+
+@media (max-width: 480px) {
+  .stats-grid { grid-template-columns: 1fr; }
+  .brand-sub { display: none; }
+  th, td { padding: 10px 8px; font-size: 12px; }
+}
 </style>
 </head>
 <body>
@@ -611,79 +612,355 @@ tbody tr:last-child td { border-bottom: none; }
   </div>
 </div>
 
-<!-- DASHBOARD -->
-<div class="dash" id="dashboard">
-  <header class="topbar">
-    <div class="topbar-inner">
-      <div class="brand">
+<!-- APP -->
+<div class="app" id="app">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <a href="#" class="brand">
         <div class="brand-mark">🏎️</div>
         <div class="brand-text">
           <div class="brand-name">AHTA Admin</div>
-          <div class="brand-sub">Sim Racing Service Dashboard</div>
+          <div class="brand-sub">Sim Racing</div>
+        </div>
+      </a>
+    </div>
+
+    <nav class="sidebar-nav">
+      <div class="nav-section">Main</div>
+      <button class="nav-item active" data-view="overview">
+        <span class="icon">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="5" height="5" rx="1"/><rect x="9" y="2" width="5" height="5" rx="1"/><rect x="2" y="9" width="5" height="5" rx="1"/><rect x="9" y="9" width="5" height="5" rx="1"/></svg>
+        </span>
+        Overview
+      </button>
+      <button class="nav-item" data-view="orders">
+        <span class="icon">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 4h12M2 8h12M2 12h8" stroke-linecap="round"/></svg>
+        </span>
+        Orders
+        <span class="badge" id="badge-pending">0</span>
+      </button>
+      <button class="nav-item" data-view="customers">
+        <span class="icon">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><circle cx="8" cy="5" r="3"/><path d="M2 14a6 6 0 0 1 12 0" stroke-linecap="round"/></svg>
+        </span>
+        Customers
+      </button>
+      <button class="nav-item" data-view="analytics">
+        <span class="icon">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12V4M6 12V8M10 12V6M14 12V2M2 14h12" stroke-linecap="round"/></svg>
+        </span>
+        Analytics
+      </button>
+
+      <div class="nav-section">Tools</div>
+      <button class="nav-item" data-view="export">
+        <span class="icon">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 2v9m0 0l-3-3m3 3l3-3M2 13h12" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+        Export Data
+      </button>
+      <button class="nav-item" data-view="settings">
+        <span class="icon">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><circle cx="8" cy="8" r="2"/><path d="M8 1v2M8 13v2M3.5 3.5l1.4 1.4M11.1 11.1l1.4 1.4M1 8h2M13 8h2M3.5 12.5l1.4-1.4M11.1 4.9l1.4-1.4" stroke-linecap="round"/></svg>
+        </span>
+        Settings
+      </button>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="user-card">
+        <div class="user-avatar">A</div>
+        <div class="user-info">
+          <div class="user-name">Admin</div>
+          <div class="user-role">Owner</div>
+        </div>
+        <button class="logout-btn" onclick="logout()" title="Logout">
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 14H3a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1h3M11 11l3-3-3-3M14 8H6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </div>
+    </div>
+  </aside>
+
+  <div class="sidebar-overlay" id="sidebar-overlay" onclick="toggleSidebar()"></div>
+
+  <!-- MAIN -->
+  <main class="main">
+    <header class="main-header">
+      <div class="page-title-bar">
+        <button class="menu-toggle" onclick="toggleSidebar()">
+          <svg width="18" height="18" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 4h12M2 8h12M2 12h12" stroke-linecap="round"/></svg>
+        </button>
+        <div>
+          <div class="page-title" id="page-title">Overview</div>
+          <div class="page-breadcrumb">Dashboard / <span id="page-crumb">Overview</span></div>
         </div>
       </div>
-      <div class="topbar-actions">
-        <button class="btn btn-secondary" onclick="loadOrders()" title="Refresh">
+      <div class="header-actions">
+        <button class="btn btn-secondary" onclick="loadOrders()">
           <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 8a6 6 0 1 1-3-5.2" stroke-linecap="round"/><path d="M14 2v4h-4"/></svg>
           <span>Refresh</span>
         </button>
-        <button class="btn btn-secondary" onclick="exportCSV()" title="Export CSV">
-          <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 2v9m0 0l-3-3m3 3l3-3M2 13h12" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          <span>Export</span>
-        </button>
-        <button class="btn btn-danger" onclick="logout()" title="Logout">
-          <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 14H3a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1h3M11 11l3-3-3-3M14 8H6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          <span>Logout</span>
-        </button>
       </div>
-    </div>
-  </header>
+    </header>
 
-  <main class="main">
-    <div class="page-header">
-      <div>
-        <h1 class="page-title">Order Dashboard</h1>
-        <p class="page-subtitle">Kelola semua order customer kamu</p>
+    <div class="content">
+
+      <!-- ===== OVERVIEW VIEW ===== -->
+      <div class="page-view active" id="view-overview">
+        <div class="section-heading">
+          <div>
+            <h1>Welcome back, Admin 👋</h1>
+            <p>Ringkasan bisnis kamu hari ini</p>
+          </div>
+        </div>
+
+        <div class="stats-grid" id="overview-stats"></div>
+
+        <div class="grid-2">
+          <div class="chart-wrap">
+            <div class="chart-title">Revenue Trend</div>
+            <div class="chart-sub">7 hari terakhir</div>
+            <div class="bar-chart" id="revenue-chart"></div>
+          </div>
+          <div class="card">
+            <div class="card-title">Recent Orders</div>
+            <div class="card-sub">5 order terbaru</div>
+            <div id="recent-orders"></div>
+          </div>
+        </div>
       </div>
-    </div>
 
-    <!-- STATS -->
-    <div class="stats-grid" id="stats"></div>
+      <!-- ===== ORDERS VIEW ===== -->
+      <div class="page-view" id="view-orders">
+        <div class="section-heading">
+          <div>
+            <h1>Orders</h1>
+            <p>Kelola semua order customer kamu</p>
+          </div>
+        </div>
 
-    <!-- FILTERS -->
-    <div class="filter-bar">
-      <input type="text" id="search" class="search-input" placeholder="Cari nama, WhatsApp, atau catatan..." oninput="renderTable()">
-      <select id="filter-status" class="filter-select" onchange="renderTable()">
-        <option value="all">Semua Status</option>
-        <option value="pending">Pending</option>
-        <option value="progress">In Progress</option>
-        <option value="done">Done</option>
-        <option value="cancel">Canceled</option>
-      </select>
-    </div>
+        <div class="stats-grid" id="orders-stats"></div>
 
-    <!-- TABLE -->
-    <div class="table-container">
-      <div class="table-wrap">
-        <table>
-          <thead>
-            <tr>
-              <th style="width:60px">#</th>
-              <th>Tanggal</th>
-              <th>Customer</th>
-              <th>Layanan</th>
-              <th>Harga</th>
-              <th>Wheel</th>
-              <th>Source</th>
-              <th>Status</th>
-              <th style="width:130px">Action</th>
-            </tr>
-          </thead>
-          <tbody id="tbody">
-            <tr><td colspan="9"><div class="loading"><div class="spinner"></div></div></td></tr>
-          </tbody>
-        </table>
+        <div class="filter-bar">
+          <input type="text" id="search" class="search-input" placeholder="Cari nama, WhatsApp, atau catatan..." oninput="renderOrdersTable()">
+          <select id="filter-status" class="filter-select" onchange="renderOrdersTable()">
+            <option value="all">Semua Status</option>
+            <option value="pending">Pending</option>
+            <option value="progress">In Progress</option>
+            <option value="done">Done</option>
+            <option value="cancel">Canceled</option>
+          </select>
+        </div>
+
+        <div class="table-container">
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th style="width:60px">#</th>
+                  <th>Tanggal</th>
+                  <th>Customer</th>
+                  <th>Layanan</th>
+                  <th>Harga</th>
+                  <th>Wheel</th>
+                  <th>Source</th>
+                  <th>Status</th>
+                  <th style="width:130px">Action</th>
+                </tr>
+              </thead>
+              <tbody id="orders-tbody">
+                <tr><td colspan="9"><div class="loading"><div class="spinner"></div></div></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
       </div>
+
+      <!-- ===== CUSTOMERS VIEW ===== -->
+      <div class="page-view" id="view-customers">
+        <div class="section-heading">
+          <div>
+            <h1>Customers</h1>
+            <p>Daftar unique customer dari semua order</p>
+          </div>
+        </div>
+
+        <div class="stats-grid" id="customers-stats"></div>
+
+        <div class="table-container">
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Customer</th>
+                  <th>WhatsApp</th>
+                  <th>Kota</th>
+                  <th>Total Order</th>
+                  <th>Total Spent</th>
+                  <th>Last Order</th>
+                </tr>
+              </thead>
+              <tbody id="customers-tbody">
+                <tr><td colspan="6"><div class="loading"><div class="spinner"></div></div></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== ANALYTICS VIEW ===== -->
+      <div class="page-view" id="view-analytics">
+        <div class="section-heading">
+          <div>
+            <h1>Analytics</h1>
+            <p>Insight bisnis kamu</p>
+          </div>
+        </div>
+
+        <div class="stats-grid" id="analytics-stats"></div>
+
+        <div class="grid-2">
+          <div class="chart-wrap">
+            <div class="chart-title">Revenue per Bulan</div>
+            <div class="chart-sub">6 bulan terakhir</div>
+            <div class="bar-chart" id="month-chart"></div>
+          </div>
+          <div class="card">
+            <div class="card-title">Top Layanan</div>
+            <div class="card-sub">Berdasarkan jumlah order</div>
+            <div id="top-services"></div>
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <div class="card">
+            <div class="card-title">Top Source</div>
+            <div class="card-sub">Dari mana customer datang</div>
+            <div id="top-sources"></div>
+          </div>
+          <div class="card">
+            <div class="card-title">Top Wheel Brand</div>
+            <div class="card-sub">Brand wheel yang paling sering disetup</div>
+            <div id="top-wheels"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== EXPORT VIEW ===== -->
+      <div class="page-view" id="view-export">
+        <div class="section-heading">
+          <div>
+            <h1>Export Data</h1>
+            <p>Download data order untuk backup atau accounting</p>
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <div class="card">
+            <div class="card-title">📊 Export ke CSV</div>
+            <div class="card-sub">Format spreadsheet (Excel-friendly)</div>
+            <button class="btn btn-primary" onclick="exportCSV()">Download CSV</button>
+          </div>
+          <div class="card">
+            <div class="card-title">📦 Export ke JSON</div>
+            <div class="card-sub">Format raw data untuk backup</div>
+            <button class="btn btn-primary" onclick="exportJSON()">Download JSON</button>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-title">📈 Export Filtered</div>
+          <div class="card-sub">Export hanya order dengan status tertentu</div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px">
+            <button class="btn btn-secondary" onclick="exportFiltered('done')">Done Orders Only</button>
+            <button class="btn btn-secondary" onclick="exportFiltered('pending')">Pending Only</button>
+            <button class="btn btn-secondary" onclick="exportFiltered('progress')">In Progress Only</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== SETTINGS VIEW ===== -->
+      <div class="page-view" id="view-settings">
+        <div class="section-heading">
+          <div>
+            <h1>Settings</h1>
+            <p>Konfigurasi dashboard</p>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-title">Account</div>
+          <div class="card-sub">Info admin & keamanan</div>
+
+          <div class="settings-row">
+            <div class="settings-info">
+              <div class="settings-label">Admin Password</div>
+              <div class="settings-desc">Ganti password via wrangler CLI: <code class="mono" style="background:var(--bg-base);padding:2px 6px;border-radius:4px;font-size:11px">wrangler secret put ADMIN_PASSWORD</code></div>
+            </div>
+          </div>
+
+          <div class="settings-row">
+            <div class="settings-info">
+              <div class="settings-label">Auto Refresh</div>
+              <div class="settings-desc">Dashboard auto-refresh setiap 30 detik</div>
+            </div>
+            <div style="color:var(--success);font-size:13px;font-weight:600">✓ Aktif</div>
+          </div>
+
+          <div class="settings-row">
+            <div class="settings-info">
+              <div class="settings-label">Session Duration</div>
+              <div class="settings-desc">Token login berlaku 7 hari</div>
+            </div>
+            <div style="color:var(--text-dim);font-size:13px">7 hari</div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-title">Integration</div>
+          <div class="card-sub">Status koneksi pihak ketiga</div>
+
+          <div class="settings-row">
+            <div class="settings-info">
+              <div class="settings-label">Cloudflare D1 Database</div>
+              <div class="settings-desc">Database utama orders</div>
+            </div>
+            <div style="color:var(--success);font-size:13px;font-weight:600">✓ Connected</div>
+          </div>
+
+          <div class="settings-row">
+            <div class="settings-info">
+              <div class="settings-label">Telegram Bot Notification</div>
+              <div class="settings-desc">Notif HP saat order baru. Set env: <code class="mono" style="background:var(--bg-base);padding:2px 6px;border-radius:4px;font-size:11px">TELEGRAM_BOT_TOKEN</code></div>
+            </div>
+            <div style="color:var(--text-muted);font-size:13px">Optional</div>
+          </div>
+
+          <div class="settings-row">
+            <div class="settings-info">
+              <div class="settings-label">WhatsApp Business</div>
+              <div class="settings-desc">Nomor: <code class="mono">+62 898-6606-040</code></div>
+            </div>
+            <div style="color:var(--success);font-size:13px;font-weight:600">✓ Connected</div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-title">Quick Links</div>
+          <div class="card-sub">Akses cepat ke resource lain</div>
+
+          <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:12px">
+            <a href="/" target="_blank" class="btn btn-secondary">🌐 Landing Page</a>
+            <a href="/lp-extreme.html" target="_blank" class="btn btn-secondary">🔥 LP Extreme</a>
+            <a href="https://github.com/ahtagme/simracing-mozacare" target="_blank" class="btn btn-secondary">📦 GitHub Repo</a>
+            <a href="https://dash.cloudflare.com" target="_blank" class="btn btn-secondary">☁️ Cloudflare</a>
+          </div>
+        </div>
+      </div>
+
     </div>
   </main>
 </div>
@@ -698,9 +975,7 @@ tbody tr:last-child td { border-bottom: none; }
       </div>
       <button class="modal-close" onclick="closeDetail()" aria-label="Close">×</button>
     </div>
-
     <div class="detail-list" id="detail-body"></div>
-
     <div class="modal-actions">
       <button class="btn btn-primary" id="d-wa-btn">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884"/></svg>
@@ -717,6 +992,16 @@ const TOKEN_KEY = 'ahta_admin_token';
 let orders = [];
 let stats = {};
 let detailId = null;
+let currentView = 'overview';
+
+const PAGE_TITLES = {
+  overview: 'Overview',
+  orders: 'Orders',
+  customers: 'Customers',
+  analytics: 'Analytics',
+  export: 'Export Data',
+  settings: 'Settings',
+};
 
 function getToken() { return localStorage.getItem(TOKEN_KEY); }
 function setToken(t) { localStorage.setItem(TOKEN_KEY, t); }
@@ -729,53 +1014,61 @@ document.getElementById('login-form').addEventListener('submit', async (e) => {
   const err = document.getElementById('login-err');
   btn.disabled = true; btn.textContent = 'Login...';
   err.textContent = '';
-
   try {
     const r = await fetch('/api/login', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ password }),
     });
     const data = await r.json();
-    if (!data.ok) {
-      err.textContent = data.error || 'Login gagal';
-      btn.disabled = false; btn.textContent = 'Login';
-      return;
-    }
+    if (!data.ok) { err.textContent = data.error || 'Login gagal'; btn.disabled = false; btn.textContent = 'Login'; return; }
     setToken(data.token);
-    showDashboard();
-  } catch (e) {
-    err.textContent = 'Network error: ' + e.message;
-    btn.disabled = false; btn.textContent = 'Login';
-  }
+    showApp();
+  } catch (e) { err.textContent = 'Network error: ' + e.message; btn.disabled = false; btn.textContent = 'Login'; }
 });
 
-function logout() {
-  clearToken();
-  location.reload();
-}
+function logout() { clearToken(); location.reload(); }
 
-function showDashboard() {
+function showApp() {
   document.getElementById('login-wrap').style.display = 'none';
-  document.getElementById('dashboard').classList.add('active');
+  document.getElementById('app').classList.add('active');
   loadOrders();
   setInterval(loadOrders, 30000);
+}
+
+function toggleSidebar() {
+  document.getElementById('sidebar').classList.toggle('open');
+  document.getElementById('sidebar-overlay').classList.toggle('show');
+}
+
+// === NAVIGATION ===
+document.querySelectorAll('.nav-item[data-view]').forEach(btn => {
+  btn.addEventListener('click', () => switchView(btn.dataset.view));
+});
+
+function switchView(view) {
+  currentView = view;
+  document.querySelectorAll('.nav-item').forEach(b => b.classList.toggle('active', b.dataset.view === view));
+  document.querySelectorAll('.page-view').forEach(v => v.classList.remove('active'));
+  document.getElementById('view-' + view).classList.add('active');
+  document.getElementById('page-title').textContent = PAGE_TITLES[view];
+  document.getElementById('page-crumb').textContent = PAGE_TITLES[view];
+  if (window.innerWidth < 900) toggleSidebar();
+  renderCurrentView();
+}
+
+function renderCurrentView() {
+  if (currentView === 'overview') renderOverview();
+  if (currentView === 'orders') renderOrdersTable();
+  if (currentView === 'customers') renderCustomers();
+  if (currentView === 'analytics') renderAnalytics();
 }
 
 async function api(path, options = {}) {
   const res = await fetch(path, {
     ...options,
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + getToken(),
-      ...(options.headers || {}),
-    },
+    headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + getToken(), ...(options.headers || {}) },
   });
-  if (res.status === 401) {
-    clearToken();
-    location.reload();
-    throw new Error('Session expired');
-  }
+  if (res.status === 401) { clearToken(); location.reload(); throw new Error('Session expired'); }
   return res.json();
 }
 
@@ -785,25 +1078,19 @@ async function loadOrders() {
     if (!data.ok) throw new Error(data.error);
     orders = data.orders || [];
     stats = data.stats || {};
-    renderStats();
-    renderTable();
+    document.getElementById('badge-pending').textContent = stats.pending || 0;
+    renderCurrentView();
   } catch (e) {
-    document.getElementById('tbody').innerHTML =
-      `<tr><td colspan="9"><div class="empty-state"><div class="icon">⚠️</div><div class="title">Error loading data</div><div class="sub">${esc(e.message)}</div></div></td></tr>`;
+    showToast('Error: ' + e.message, 'error');
   }
 }
 
 async function updateStatus(id, status) {
   try {
-    await api(`/api/orders/${id}`, {
-      method: 'PATCH',
-      body: JSON.stringify({ status }),
-    });
+    await api(`/api/orders/${id}`, { method: 'PATCH', body: JSON.stringify({ status }) });
     showToast('Status updated', 'success');
     loadOrders();
-  } catch (e) {
-    showToast('Error: ' + e.message, 'error');
-  }
+  } catch (e) { showToast('Error: ' + e.message, 'error'); }
 }
 
 async function deleteOrder() {
@@ -814,49 +1101,54 @@ async function deleteOrder() {
     showToast('Order deleted', 'success');
     closeDetail();
     loadOrders();
-  } catch (e) {
-    showToast('Error: ' + e.message, 'error');
+  } catch (e) { showToast('Error: ' + e.message, 'error'); }
+}
+
+// === RENDER OVERVIEW ===
+function renderOverview() {
+  document.getElementById('overview-stats').innerHTML = statsCardsHTML();
+
+  // Revenue chart - last 7 days
+  const now = new Date();
+  const days = [];
+  for (let i = 6; i >= 0; i--) {
+    const d = new Date(now);
+    d.setDate(d.getDate() - i);
+    const dateStr = d.toISOString().split('T')[0];
+    const revenue = orders.filter(o => o.status === 'done' && o.created_at && o.created_at.startsWith(dateStr)).reduce((s, o) => s + (o.price || 0), 0);
+    days.push({ label: d.toLocaleDateString('id-ID', { weekday: 'short' }).slice(0,3), value: revenue });
+  }
+  const max = Math.max(...days.map(d => d.value), 100000);
+  document.getElementById('revenue-chart').innerHTML = days.map(d => `
+    <div class="bar">
+      <div class="bar-fill" style="height:${Math.max(4, (d.value/max)*160)}px" data-val="${d.value > 0 ? formatRpShort(d.value) : ''}"></div>
+      <div class="bar-label">${d.label}</div>
+    </div>
+  `).join('');
+
+  // Recent orders
+  const recent = orders.slice(0, 5);
+  if (recent.length === 0) {
+    document.getElementById('recent-orders').innerHTML = '<div style="text-align:center;padding:20px;color:var(--text-muted);font-size:13px">Belum ada order</div>';
+  } else {
+    document.getElementById('recent-orders').innerHTML = recent.map(o => `
+      <div onclick="openDetail(${o.id})" style="display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--border);cursor:pointer">
+        <div>
+          <div style="font-weight:600;font-size:13px">${esc(o.customer_name)}</div>
+          <div style="font-size:11px;color:var(--text-muted)">${esc(o.service)} · ${formatRp(o.price)}</div>
+        </div>
+        <span class="status-pill ${o.status}">${o.status}</span>
+      </div>
+    `).join('');
   }
 }
 
-function renderStats() {
-  document.getElementById('stats').innerHTML = `
-    <div class="stat-card">
-      <div class="stat-icon warning">⏳</div>
-      <div class="stat-label">Pending</div>
-      <div class="stat-value">${stats.pending || 0}</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-icon info">🔧</div>
-      <div class="stat-label">In Progress</div>
-      <div class="stat-value">${stats.progress || 0}</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-icon success">✓</div>
-      <div class="stat-label">Done</div>
-      <div class="stat-value">${stats.done || 0}</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-icon danger">✕</div>
-      <div class="stat-label">Canceled</div>
-      <div class="stat-value">${stats.cancel || 0}</div>
-    </div>
-    <div class="stat-card featured">
-      <div class="stat-icon success">📅</div>
-      <div class="stat-label">Revenue Bulan Ini</div>
-      <div class="stat-value success">${formatRp(stats.revenue_month)}</div>
-    </div>
-    <div class="stat-card featured">
-      <div class="stat-icon success">💎</div>
-      <div class="stat-label">Revenue Total</div>
-      <div class="stat-value success">${formatRp(stats.revenue)}</div>
-    </div>
-  `;
-}
+// === RENDER ORDERS ===
+function renderOrdersTable() {
+  document.getElementById('orders-stats').innerHTML = statsCardsHTML();
 
-function renderTable() {
-  const search = document.getElementById('search').value.toLowerCase();
-  const filterStatus = document.getElementById('filter-status').value;
+  const search = (document.getElementById('search')?.value || '').toLowerCase();
+  const filterStatus = document.getElementById('filter-status')?.value || 'all';
 
   let filtered = orders.filter(o => {
     if (filterStatus !== 'all' && o.status !== filterStatus) return false;
@@ -867,9 +1159,9 @@ function renderTable() {
     return true;
   });
 
-  const tbody = document.getElementById('tbody');
+  const tbody = document.getElementById('orders-tbody');
   if (filtered.length === 0) {
-    tbody.innerHTML = `<tr><td colspan="9"><div class="empty-state"><div class="icon">📭</div><div class="title">Belum ada order</div><div class="sub">${orders.length === 0 ? 'Order pertama akan muncul di sini' : 'Tidak ada order yang cocok dengan filter'}</div></div></td></tr>`;
+    tbody.innerHTML = `<tr><td colspan="9"><div class="empty-state"><div class="icon">📭</div><div class="title">Belum ada order</div><div class="sub">${orders.length === 0 ? 'Order pertama akan muncul di sini' : 'Tidak ada yang cocok dengan filter'}</div></div></td></tr>`;
     return;
   }
 
@@ -904,6 +1196,121 @@ function renderTable() {
   `).join('');
 }
 
+// === RENDER CUSTOMERS ===
+function renderCustomers() {
+  const customerMap = {};
+  orders.forEach(o => {
+    const key = o.whatsapp;
+    if (!customerMap[key]) {
+      customerMap[key] = { name: o.customer_name, whatsapp: o.whatsapp, city: o.city, orders: 0, total: 0, last_order: o.created_at };
+    }
+    customerMap[key].orders++;
+    if (o.status === 'done') customerMap[key].total += o.price || 0;
+    if (o.created_at > customerMap[key].last_order) customerMap[key].last_order = o.created_at;
+  });
+  const customers = Object.values(customerMap).sort((a, b) => b.total - a.total);
+
+  document.getElementById('customers-stats').innerHTML = `
+    <div class="stat-card"><div class="stat-icon primary">👥</div><div class="stat-label">Total Customer</div><div class="stat-value">${customers.length}</div></div>
+    <div class="stat-card"><div class="stat-icon success">⭐</div><div class="stat-label">Repeat Customer</div><div class="stat-value">${customers.filter(c => c.orders > 1).length}</div></div>
+    <div class="stat-card featured"><div class="stat-icon success">💎</div><div class="stat-label">Avg Spent / Customer</div><div class="stat-value success">${formatRp(customers.length > 0 ? Math.round(customers.reduce((s,c)=>s+c.total,0) / customers.length) : 0)}</div></div>
+  `;
+
+  const tbody = document.getElementById('customers-tbody');
+  if (customers.length === 0) {
+    tbody.innerHTML = '<tr><td colspan="6"><div class="empty-state"><div class="icon">👥</div><div class="title">Belum ada customer</div></div></td></tr>';
+    return;
+  }
+  tbody.innerHTML = customers.map(c => `
+    <tr>
+      <td><strong>${esc(c.name)}</strong></td>
+      <td><a href="https://wa.me/${formatWA(c.whatsapp)}" class="wa-link" target="_blank">${esc(c.whatsapp)}</a></td>
+      <td style="font-size:12px;color:var(--text-dim)">${esc(c.city || '—')}</td>
+      <td><strong>${c.orders}</strong></td>
+      <td><span class="price-cell mono">${formatRp(c.total)}</span></td>
+      <td><span class="date-cell">${formatDate(c.last_order)}</span></td>
+    </tr>
+  `).join('');
+}
+
+// === RENDER ANALYTICS ===
+function renderAnalytics() {
+  const doneOrders = orders.filter(o => o.status === 'done');
+  const totalRevenue = doneOrders.reduce((s, o) => s + (o.price || 0), 0);
+  const avgOrder = doneOrders.length > 0 ? Math.round(totalRevenue / doneOrders.length) : 0;
+  const conversionRate = orders.length > 0 ? Math.round((doneOrders.length / orders.length) * 100) : 0;
+
+  document.getElementById('analytics-stats').innerHTML = `
+    <div class="stat-card"><div class="stat-icon primary">📊</div><div class="stat-label">Total Orders</div><div class="stat-value">${orders.length}</div></div>
+    <div class="stat-card"><div class="stat-icon info">📈</div><div class="stat-label">Conversion Rate</div><div class="stat-value">${conversionRate}%</div></div>
+    <div class="stat-card featured"><div class="stat-icon success">💰</div><div class="stat-label">Avg Order Value</div><div class="stat-value success">${formatRp(avgOrder)}</div></div>
+    <div class="stat-card featured"><div class="stat-icon success">💎</div><div class="stat-label">Total Revenue</div><div class="stat-value success">${formatRp(totalRevenue)}</div></div>
+  `;
+
+  // 6 months chart
+  const now = new Date();
+  const months = [];
+  for (let i = 5; i >= 0; i--) {
+    const d = new Date(now);
+    d.setMonth(d.getMonth() - i);
+    const ym = d.toISOString().substring(0, 7);
+    const revenue = doneOrders.filter(o => o.created_at && o.created_at.startsWith(ym)).reduce((s, o) => s + (o.price || 0), 0);
+    months.push({ label: d.toLocaleDateString('id-ID', { month: 'short' }), value: revenue });
+  }
+  const maxM = Math.max(...months.map(m => m.value), 100000);
+  document.getElementById('month-chart').innerHTML = months.map(m => `
+    <div class="bar">
+      <div class="bar-fill" style="height:${Math.max(4, (m.value/maxM)*160)}px" data-val="${m.value > 0 ? formatRpShort(m.value) : ''}"></div>
+      <div class="bar-label">${m.label}</div>
+    </div>
+  `).join('');
+
+  // Top services
+  const services = {};
+  orders.forEach(o => { services[o.service] = (services[o.service] || 0) + 1; });
+  const topSvc = Object.entries(services).sort((a, b) => b[1] - a[1]).slice(0, 5);
+  document.getElementById('top-services').innerHTML = topSvc.length === 0 ? '<div style="text-align:center;padding:20px;color:var(--text-muted);font-size:13px">No data</div>' : topSvc.map(([s, c]) => `
+    <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border);font-size:13px">
+      <span>${esc(s)}</span>
+      <strong>${c}</strong>
+    </div>
+  `).join('');
+
+  // Top sources
+  const sources = {};
+  orders.forEach(o => { const src = o.source || 'Unknown'; sources[src] = (sources[src] || 0) + 1; });
+  const topSrc = Object.entries(sources).sort((a, b) => b[1] - a[1]).slice(0, 5);
+  document.getElementById('top-sources').innerHTML = topSrc.length === 0 ? '<div style="text-align:center;padding:20px;color:var(--text-muted);font-size:13px">No data</div>' : topSrc.map(([s, c]) => `
+    <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border);font-size:13px">
+      <span>${esc(s)}</span>
+      <strong>${c}</strong>
+    </div>
+  `).join('');
+
+  // Top wheels
+  const wheels = {};
+  orders.forEach(o => { if (o.wheel) wheels[o.wheel] = (wheels[o.wheel] || 0) + 1; });
+  const topWheel = Object.entries(wheels).sort((a, b) => b[1] - a[1]).slice(0, 5);
+  document.getElementById('top-wheels').innerHTML = topWheel.length === 0 ? '<div style="text-align:center;padding:20px;color:var(--text-muted);font-size:13px">No data</div>' : topWheel.map(([s, c]) => `
+    <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border);font-size:13px">
+      <span>${esc(s)}</span>
+      <strong>${c}</strong>
+    </div>
+  `).join('');
+}
+
+function statsCardsHTML() {
+  return `
+    <div class="stat-card"><div class="stat-icon warning">⏳</div><div class="stat-label">Pending</div><div class="stat-value">${stats.pending || 0}</div></div>
+    <div class="stat-card"><div class="stat-icon info">🔧</div><div class="stat-label">In Progress</div><div class="stat-value">${stats.progress || 0}</div></div>
+    <div class="stat-card"><div class="stat-icon success">✓</div><div class="stat-label">Done</div><div class="stat-value">${stats.done || 0}</div></div>
+    <div class="stat-card"><div class="stat-icon danger">✕</div><div class="stat-label">Canceled</div><div class="stat-value">${stats.cancel || 0}</div></div>
+    <div class="stat-card featured"><div class="stat-icon success">📅</div><div class="stat-label">Revenue Bulan Ini</div><div class="stat-value success">${formatRp(stats.revenue_month)}</div></div>
+    <div class="stat-card featured"><div class="stat-icon success">💎</div><div class="stat-label">Revenue Total</div><div class="stat-value success">${formatRp(stats.revenue)}</div></div>
+  `;
+}
+
+// === DETAIL MODAL ===
 function openDetail(id) {
   const o = orders.find(x => x.id === id);
   if (!o) return;
@@ -929,26 +1336,32 @@ function openDetail(id) {
   document.getElementById('detail-modal').classList.add('show');
 }
 
-function closeDetail() {
-  document.getElementById('detail-modal').classList.remove('show');
-  detailId = null;
-}
+function closeDetail() { document.getElementById('detail-modal').classList.remove('show'); detailId = null; }
 
-function exportCSV() {
+// === EXPORT ===
+function exportCSV() { exportData(orders, 'csv'); showToast('CSV exported', 'success'); }
+function exportJSON() {
+  const blob = new Blob([JSON.stringify(orders, null, 2)], { type: 'application/json' });
+  downloadFile(blob, `ahta_orders_${new Date().toISOString().split('T')[0]}.json`);
+  showToast('JSON exported', 'success');
+}
+function exportFiltered(status) {
+  const filtered = orders.filter(o => o.status === status);
+  if (filtered.length === 0) { showToast(`No ${status} orders`, 'error'); return; }
+  exportData(filtered, 'csv', `ahta_${status}_orders`);
+  showToast(`${filtered.length} ${status} orders exported`, 'success');
+}
+function exportData(data, format, filename) {
   const headers = ['ID','Tanggal','Customer','WhatsApp','Kota','Layanan','Harga','Wheel','Metode','Jadwal','Game','Source','Status','Catatan'];
-  const rows = orders.map(o => [
-    o.id, o.created_at, o.customer_name, o.whatsapp, o.city || '',
-    o.service, o.price, o.wheel || '', o.method || '', o.schedule || '',
-    o.game || '', o.source || '', o.status, o.notes || ''
-  ]);
+  const rows = data.map(o => [o.id, o.created_at, o.customer_name, o.whatsapp, o.city || '', o.service, o.price, o.wheel || '', o.method || '', o.schedule || '', o.game || '', o.source || '', o.status, o.notes || '']);
   const csv = [headers, ...rows].map(r => r.map(c => `"${(c+'').replace(/"/g,'""')}"`).join(',')).join('\n');
   const blob = new Blob(['﻿' + csv], { type: 'text/csv;charset=utf-8' });
+  downloadFile(blob, `${filename || 'ahta_orders'}_${new Date().toISOString().split('T')[0]}.csv`);
+}
+function downloadFile(blob, name) {
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
-  a.href = url;
-  a.download = `ahta_orders_${new Date().toISOString().split('T')[0]}.csv`;
-  a.click();
-  showToast('Exported to CSV', 'success');
+  a.href = url; a.download = name; a.click();
 }
 
 function showToast(msg, type = 'success') {
@@ -962,6 +1375,7 @@ function showToast(msg, type = 'success') {
 }
 
 function formatRp(n) { return 'Rp ' + (n || 0).toLocaleString('id-ID'); }
+function formatRpShort(n) { if (n >= 1e6) return 'Rp ' + (n/1e6).toFixed(1) + 'M'; if (n >= 1e3) return 'Rp ' + (n/1e3).toFixed(0) + 'K'; return 'Rp ' + n; }
 function formatDate(s) {
   if (!s) return '—';
   const d = new Date(s.replace(' ', 'T'));
@@ -977,10 +1391,7 @@ function esc(s) { return (s+'').replace(/[<>&"]/g, c => ({ '<':'&lt;', '>':'&gt;
 
 if (getToken()) {
   fetch('/api/orders', { headers: { 'Authorization': 'Bearer ' + getToken() } })
-    .then(r => {
-      if (r.ok) showDashboard();
-      else { clearToken(); }
-    });
+    .then(r => { if (r.ok) showApp(); else clearToken(); });
 }
 </script>
 

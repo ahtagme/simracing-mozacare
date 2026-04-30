@@ -702,6 +702,148 @@ body {
 
 body { padding-bottom: 90px; }
 
+/* === HERO IMAGE === */
+.hero-img-wrap {
+  margin: 32px auto 0;
+  max-width: 700px;
+  position: relative;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 4px solid var(--yellow);
+  box-shadow: 0 0 60px rgba(255,10,60,0.5), 12px 12px 0 var(--red);
+  aspect-ratio: 16/9;
+  background: var(--bg-1);
+}
+.hero-img-wrap img { width:100%; height:100%; object-fit: cover; display: block; }
+.hero-img-wrap::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 50%, rgba(0,0,0,0.7) 100%);
+}
+.hero-img-tag {
+  position: absolute;
+  top: 16px; left: 16px;
+  background: var(--red);
+  color: white;
+  padding: 6px 14px;
+  font-weight: 800;
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  border-radius: 4px;
+  z-index: 2;
+  text-transform: uppercase;
+}
+
+/* === BEFORE AFTER === */
+.before-after {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin: 24px 0;
+}
+@media (max-width:600px) { .before-after { grid-template-columns: 1fr; } }
+.ba-card {
+  border-radius: 12px;
+  overflow: hidden;
+  position: relative;
+  aspect-ratio: 4/3;
+}
+.ba-card img { width:100%; height:100%; object-fit: cover; }
+.ba-card .ba-label {
+  position: absolute;
+  top: 12px; left: 12px;
+  padding: 5px 12px;
+  font-weight: 800;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  border-radius: 4px;
+  text-transform: uppercase;
+}
+.ba-card.before .ba-label { background: var(--red); color: white; }
+.ba-card.after .ba-label { background: var(--green); color: black; }
+.ba-card.before { border: 3px solid var(--red); }
+.ba-card.after { border: 3px solid var(--green); }
+.ba-card .ba-overlay {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  background: linear-gradient(180deg, transparent, rgba(0,0,0,0.9));
+  padding: 30px 14px 14px;
+  font-size: 13px;
+  font-weight: 600;
+  color: white;
+}
+
+/* === GALLERY EXTREME === */
+.lp-gallery {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin-top: 20px;
+}
+@media (max-width:600px) { .lp-gallery { grid-template-columns: repeat(2, 1fr); } }
+.lp-gallery-item {
+  position: relative;
+  border-radius: 8px;
+  overflow: hidden;
+  aspect-ratio: 1/1;
+  border: 2px solid var(--bg-2);
+  transition: all .2s;
+}
+.lp-gallery-item:hover { border-color: var(--yellow); transform: scale(1.03); }
+.lp-gallery-item img { width:100%; height:100%; object-fit: cover; }
+.lp-gallery-item .badge {
+  position: absolute;
+  bottom: 6px; left: 6px;
+  background: var(--yellow);
+  color: black;
+  padding: 2px 8px;
+  font-size: 10px;
+  font-weight: 800;
+  border-radius: 4px;
+}
+
+/* === PROOF AVATAR (testimonial) === */
+.testi-avatar {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 8px;
+  border: 2px solid var(--yellow);
+  vertical-align: middle;
+}
+
+/* === BRAND STRIP === */
+.brand-strip-extreme {
+  background: var(--bg-1);
+  border: 2px solid var(--yellow);
+  border-radius: 12px;
+  padding: 20px;
+  text-align: center;
+  margin: 32px 0;
+}
+.brand-strip-extreme .label {
+  font-family: 'Anton', sans-serif;
+  font-size: 14px;
+  color: var(--yellow);
+  letter-spacing: 0.15em;
+  margin-bottom: 14px;
+  text-transform: uppercase;
+}
+.brand-strip-extreme .brands {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+.brand-strip-extreme .brand-name {
+  font-family: 'Anton', sans-serif;
+  font-size: 18px;
+  color: var(--text-dim);
+  letter-spacing: 0.05em;
+  opacity: 0.7;
+}
+
 /* === MODAL === */
 .modal-overlay {
   position: fixed;
@@ -855,6 +997,12 @@ textarea.form-input { resize: vertical; min-height: 60px; }
       🔥 SIKAT SEKARANG — RP 250K
     </button>
     <div class="cta-mini">⚠️ Slot weekend tinggal 3 — booking sekarang sebelum tutup</div>
+
+    <!-- HERO IMAGE -->
+    <div class="hero-img-wrap">
+      <span class="hero-img-tag">🔥 REAL CUSTOMER SETUP</span>
+      <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?w=1200&q=80&auto=format&fit=crop" alt="AHTA Sim Racing Setup" loading="lazy">
+    </div>
   </div>
 </section>
 
@@ -903,6 +1051,78 @@ textarea.form-input { resize: vertical; min-height: 60px; }
     <div class="solution-box">
       <h3 class="display">SETUP REAL FEEL DALAM 1-3 JAM</h3>
       <p>Ahli yang udah <strong style="color:var(--yellow)">setup 500+ wheel</strong> dari berbagai brand. Lo tinggal duduk, main, langsung kerasa bedanya. <strong style="color:var(--green)">Garansi puas, atau setup ulang gratis.</strong></p>
+    </div>
+  </div>
+</section>
+
+<!-- BEFORE / AFTER -->
+<section class="section">
+  <div class="container">
+    <div class="section-shocker">
+      <h2 class="display"><span class="red">SEBELUM</span> vs <span class="yellow">SETELAH</span></h2>
+      <p style="text-align:center;color:var(--text-dim);font-size:14px">Lihat sendiri bedanya. Real customer, real result.</p>
+    </div>
+
+    <div class="before-after">
+      <div class="ba-card before">
+        <div class="ba-label">❌ Sebelum</div>
+        <img src="https://images.unsplash.com/photo-1593305841991-05c297ba4575?w=600&q=80&auto=format&fit=crop&sat=-50&blur=1" alt="Before">
+        <div class="ba-overlay">FFB datar, mobil susah dikontrol, drift gak bisa lurus</div>
+      </div>
+      <div class="ba-card after">
+        <div class="ba-label">✓ Setelah</div>
+        <img src="https://images.unsplash.com/photo-1538485399081-7c8978d2efd6?w=600&q=80&auto=format&fit=crop&sat=20" alt="After">
+        <div class="ba-overlay">FFB presisi, real feel, drift lurus, racing serasa nyata</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY HASIL -->
+<section class="section" style="padding-top:0">
+  <div class="container">
+    <div class="section-shocker">
+      <h2 class="display">HASIL <span class="yellow">CUSTOMER LAIN</span></h2>
+      <p style="text-align:center;color:var(--text-dim);font-size:14px;margin-bottom:20px">500+ setup udah kelar. Lo selanjutnya?</p>
+    </div>
+
+    <div class="lp-gallery">
+      <div class="lp-gallery-item">
+        <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?w=400&q=80&auto=format&fit=crop" alt="Setup 1">
+        <span class="badge">G29 · JKT</span>
+      </div>
+      <div class="lp-gallery-item">
+        <img src="https://images.unsplash.com/photo-1593305841991-05c297ba4575?w=400&q=80&auto=format&fit=crop" alt="Setup 2">
+        <span class="badge">MOZA R5 · SBY</span>
+      </div>
+      <div class="lp-gallery-item">
+        <img src="https://images.unsplash.com/photo-1538485399081-7c8978d2efd6?w=400&q=80&auto=format&fit=crop" alt="Setup 3">
+        <span class="badge">T300 · BDG</span>
+      </div>
+      <div class="lp-gallery-item">
+        <img src="https://images.unsplash.com/photo-1511512578047-dfb367046420?w=400&q=80&auto=format&fit=crop" alt="Setup 4">
+        <span class="badge">CSL DD · YGY</span>
+      </div>
+      <div class="lp-gallery-item">
+        <img src="https://images.unsplash.com/photo-1614680376573-df3480f0c6ff?w=400&q=80&auto=format&fit=crop" alt="Setup 5">
+        <span class="badge">MOZA R9 · BALI</span>
+      </div>
+      <div class="lp-gallery-item">
+        <img src="https://images.unsplash.com/photo-1593642632559-0c6d3fc62b89?w=400&q=80&auto=format&fit=crop" alt="Setup 6">
+        <span class="badge">G923 · MDN</span>
+      </div>
+    </div>
+
+    <!-- BRAND STRIP -->
+    <div class="brand-strip-extreme">
+      <div class="label">🏆 SUPPORT SEMUA BRAND WHEEL</div>
+      <div class="brands">
+        <span class="brand-name">LOGITECH</span>
+        <span class="brand-name">MOZA</span>
+        <span class="brand-name">THRUSTMASTER</span>
+        <span class="brand-name">FANATEC</span>
+        <span class="brand-name">CAMMUS</span>
+      </div>
     </div>
   </div>
 </section>
