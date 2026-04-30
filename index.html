@@ -737,8 +737,8 @@ document.addEventListener('keydown', e => {
   if (e.key === 'Escape') closeOrderForm();
 });
 
-// ============ SUBMIT FORM → WHATSAPP ============
-function submitOrder(e) {
+// ============ SUBMIT FORM → API + WHATSAPP ============
+async function submitOrder(e) {
   e.preventDefault();
 
   const name = document.getElementById('f-name').value.trim();
@@ -751,7 +751,37 @@ function submitOrder(e) {
   const notes = document.getElementById('f-notes').value.trim();
   const source = document.getElementById('f-source').value;
 
-  // Format pesan WhatsApp
+  // Disable submit button selama processing
+  const btn = e.target.querySelector('button[type="submit"]');
+  const originalBtnHTML = btn.innerHTML;
+  btn.disabled = true;
+  btn.innerHTML = '<span class="icon">⏳</span><span>Menyimpan...</span>';
+
+  // 1. POST ke API (save ke D1 database, plus trigger Telegram)
+  try {
+    await fetch('/api/submit', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        customer_name: name,
+        whatsapp: wa,
+        city: city || null,
+        wheel: wheel,
+        service: currentService,
+        price: currentPrice,
+        method: method,
+        schedule: when,
+        game: game || null,
+        notes: notes || null,
+        source: source || null,
+      }),
+    });
+  } catch (err) {
+    // Silent — tetap lanjut ke WhatsApp meski API gagal
+    console.warn('API submit failed:', err);
+  }
+
+  // 2. Format pesan WhatsApp
   let msg = `*ORDER BARU - AHTA SIM RACING*\n`;
   msg += `━━━━━━━━━━━━━━━━━━━━\n\n`;
   msg += `🛠️ *Layanan:* ${currentService}\n`;
@@ -771,11 +801,7 @@ function submitOrder(e) {
   msg += `\n━━━━━━━━━━━━━━━━━━━━\n`;
   msg += `Mohon diproses ya kak. Terima kasih! 🙏`;
 
-  // Encode dan buka WhatsApp
-  const encoded = encodeURIComponent(msg);
-  const url = `https://wa.me/${WA_NUMBER}?text=${encoded}`;
-
-  // Save to localStorage as backup (in case WA fails)
+  // 3. Backup localStorage juga (jaga-jaga)
   saveOrderBackup({
     timestamp: new Date().toISOString(),
     service: currentService,
@@ -783,10 +809,10 @@ function submitOrder(e) {
     name, wa, city, wheel, method, when, game, notes, source
   });
 
-  // Open WhatsApp in new tab
+  // 4. Buka WhatsApp + show success
+  const encoded = encodeURIComponent(msg);
+  const url = `https://wa.me/${WA_NUMBER}?text=${encoded}`;
   window.open(url, '_blank');
-
-  // Show success message
   showSuccess();
 }
 

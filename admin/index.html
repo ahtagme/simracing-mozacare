@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AHTA Admin Dashboard</title>
+<meta name="robots" content="noindex, nofollow">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; font-family: 'Segoe UI', system-ui, sans-serif; }
+body {
+  background: #0a0a0f;
+  color: #e8e8ec;
+  line-height: 1.5;
+  min-height: 100vh;
+}
+
+/* LOGIN SCREEN */
+.login-wrap {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background:
+    radial-gradient(circle at 20% 30%, rgba(255,45,85,.15) 0%, transparent 50%),
+    radial-gradient(circle at 80% 70%, rgba(255,107,53,.12) 0%, transparent 50%);
+}
+.login-card {
+  background: #15151c;
+  border: 1px solid #25252e;
+  border-radius: 20px;
+  padding: 40px 32px;
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+}
+.login-card .logo { font-size: 48px; margin-bottom: 12px; }
+.login-card h1 {
+  font-size: 24px;
+  margin-bottom: 4px;
+  background: linear-gradient(135deg, #ff2d55, #ff6b35);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.login-card p { font-size: 13px; opacity: .7; margin-bottom: 24px; }
+.login-card input {
+  width: 100%;
+  background: #0a0a0f;
+  border: 1px solid #25252e;
+  padding: 14px 16px;
+  border-radius: 12px;
+  color: #fff;
+  font-size: 15px;
+  margin-bottom: 14px;
+  font-family: inherit;
+}
+.login-card input:focus { outline: none; border-color: #ff2d55; }
+.login-card button {
+  width: 100%;
+  background: linear-gradient(135deg, #ff2d55, #ff6b35);
+  color: #fff;
+  border: none;
+  padding: 14px;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 15px;
+  cursor: pointer;
+  font-family: inherit;
+}
+.login-card button:disabled { opacity: .5; cursor: not-allowed; }
+.login-card .err {
+  color: #ff8787;
+  font-size: 13px;
+  margin-top: 12px;
+  min-height: 18px;
+}
+
+/* DASHBOARD */
+.dash { display: none; padding: 20px; max-width: 1400px; margin: 0 auto; }
+.dash.active { display: block; }
+
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.topbar h1 {
+  font-size: 22px;
+  background: linear-gradient(135deg, #ff2d55, #ff6b35);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.topbar .actions { display: flex; gap: 8px; }
+.btn {
+  background: #25252e;
+  color: #fff;
+  border: none;
+  padding: 9px 14px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+  transition: background .15s;
+}
+.btn:hover { background: #2c2c36; }
+.btn.primary { background: linear-gradient(135deg, #ff2d55, #ff6b35); }
+.btn.danger { background: rgba(255,45,85,.2); color: #ff8787; }
+.btn.success { background: rgba(0,255,136,.2); color: #00ff88; }
+.btn-sm { padding: 5px 10px; font-size: 11px; }
+
+/* STATS */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 12px;
+  margin-bottom: 24px;
+}
+.stat-card {
+  background: #15151c;
+  border: 1px solid #25252e;
+  padding: 16px;
+  border-radius: 12px;
+}
+.stat-card .lbl { font-size: 11px; opacity: .7; text-transform: uppercase; letter-spacing: .5px; margin-bottom: 6px; }
+.stat-card .val { font-size: 22px; font-weight: 900; }
+.stat-card.green .val { color: #00ff88; }
+.stat-card.yellow .val { color: #ffd43b; }
+.stat-card.blue .val { color: #4dabf7; }
+.stat-card.red .val { color: #ff8787; }
+
+/* FILTERS */
+.filters {
+  background: #15151c;
+  border: 1px solid #25252e;
+  padding: 14px;
+  border-radius: 12px;
+  margin-bottom: 16px;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.filters input, .filters select {
+  background: #0a0a0f;
+  border: 1px solid #25252e;
+  padding: 8px 12px;
+  border-radius: 8px;
+  color: #fff;
+  font-size: 13px;
+  font-family: inherit;
+}
+.filters input { flex: 1; min-width: 180px; }
+
+/* TABLE */
+.table-wrap {
+  background: #15151c;
+  border: 1px solid #25252e;
+  border-radius: 12px;
+  overflow: hidden;
+  overflow-x: auto;
+}
+table { width: 100%; border-collapse: collapse; }
+th, td {
+  padding: 12px;
+  text-align: left;
+  font-size: 13px;
+  border-bottom: 1px solid #25252e;
+  vertical-align: top;
+}
+th {
+  background: #1c1c25;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: .5px;
+  opacity: .85;
+  font-weight: 700;
+}
+tr:hover { background: rgba(255,45,85,.04); }
+
+.status-pill {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 50px;
+  font-size: 11px;
+  font-weight: 700;
+}
+.status-pill.pending { background: rgba(255,212,59,.2); color: #ffd43b; }
+.status-pill.progress { background: rgba(77,171,247,.2); color: #4dabf7; }
+.status-pill.done { background: rgba(0,255,136,.2); color: #00ff88; }
+.status-pill.cancel { background: rgba(255,45,85,.2); color: #ff8787; }
+
+.empty { text-align: center; padding: 60px 20px; opacity: .5; }
+.loading { text-align: center; padding: 40px; opacity: .7; }
+
+.actions-cell { display: flex; gap: 6px; flex-wrap: wrap; }
+.actions-cell select {
+  background: #0a0a0f;
+  border: 1px solid #25252e;
+  color: #fff;
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 11px;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.wa-link {
+  color: #25d366;
+  text-decoration: none;
+  font-weight: 600;
+}
+.wa-link:hover { text-decoration: underline; }
+
+@media (max-width: 900px) {
+  .stats { grid-template-columns: repeat(3, 1fr); }
+  table { font-size: 11px; }
+  th, td { padding: 8px 6px; }
+}
+@media (max-width: 600px) {
+  .stats { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* MODAL DETAIL */
+.modal-overlay {
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,.85);
+  backdrop-filter: blur(8px);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  padding: 20px;
+}
+.modal-overlay.show { display: flex; }
+.modal {
+  background: #15151c;
+  border: 1px solid #25252e;
+  border-radius: 16px;
+  padding: 24px;
+  width: 100%;
+  max-width: 500px;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+.modal h3 { margin-bottom: 16px; font-size: 18px; }
+.modal .row { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #25252e; font-size: 13px; }
+.modal .row .lbl { opacity: .7; }
+.modal .row .val { font-weight: 600; max-width: 60%; text-align: right; word-break: break-word; }
+</style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div class="login-wrap" id="login-wrap">
+  <div class="login-card">
+    <div class="logo">🔐</div>
+    <h1>AHTA Admin</h1>
+    <p>Dashboard order sim racing service</p>
+    <form id="login-form">
+      <input type="password" id="password" placeholder="Password admin" required autofocus>
+      <button type="submit" id="login-btn">Login</button>
+      <div class="err" id="login-err"></div>
+    </form>
+  </div>
+</div>
+
+<!-- DASHBOARD -->
+<div class="dash" id="dashboard">
+  <div class="topbar">
+    <h1>📊 Order Dashboard</h1>
+    <div class="actions">
+      <button class="btn" onclick="loadOrders()">🔄 Refresh</button>
+      <button class="btn" onclick="exportCSV()">📥 Export CSV</button>
+      <button class="btn danger" onclick="logout()">🚪 Logout</button>
+    </div>
+  </div>
+
+  <div class="stats" id="stats"></div>
+
+  <div class="filters">
+    <input type="text" id="search" placeholder="🔍 Cari nama / WA / catatan..." oninput="renderTable()">
+    <select id="filter-status" onchange="renderTable()">
+      <option value="all">Semua Status</option>
+      <option value="pending">Pending</option>
+      <option value="progress">In Progress</option>
+      <option value="done">Done</option>
+      <option value="cancel">Canceled</option>
+    </select>
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Tanggal</th>
+          <th>Customer</th>
+          <th>Layanan</th>
+          <th>Harga</th>
+          <th>Wheel</th>
+          <th>Source</th>
+          <th>Status</th>
+          <th>Aksi</th>
+        </tr>
+      </thead>
+      <tbody id="tbody">
+        <tr><td colspan="9" class="loading">Loading...</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- DETAIL MODAL -->
+<div class="modal-overlay" id="detail-modal" onclick="if(event.target===this) closeDetail()">
+  <div class="modal">
+    <h3>📋 Detail Order #<span id="d-id"></span></h3>
+    <div id="detail-body"></div>
+    <div style="margin-top:16px;display:flex;gap:8px;flex-wrap:wrap">
+      <button class="btn primary" id="d-wa-btn">💬 Chat WA</button>
+      <button class="btn danger" onclick="deleteOrder()">🗑️ Hapus</button>
+      <button class="btn" onclick="closeDetail()">Tutup</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ========== STATE ==========
+const TOKEN_KEY = 'ahta_admin_token';
+let orders = [];
+let stats = {};
+let detailId = null;
+
+// ========== AUTH ==========
+function getToken() { return localStorage.getItem(TOKEN_KEY); }
+function setToken(t) { localStorage.setItem(TOKEN_KEY, t); }
+function clearToken() { localStorage.removeItem(TOKEN_KEY); }
+
+document.getElementById('login-form').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const password = document.getElementById('password').value;
+  const btn = document.getElementById('login-btn');
+  const err = document.getElementById('login-err');
+  btn.disabled = true; btn.textContent = 'Login...';
+  err.textContent = '';
+
+  try {
+    const r = await fetch('/api/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ password }),
+    });
+    const data = await r.json();
+    if (!data.ok) {
+      err.textContent = data.error || 'Login gagal';
+      btn.disabled = false; btn.textContent = 'Login';
+      return;
+    }
+    setToken(data.token);
+    showDashboard();
+  } catch (e) {
+    err.textContent = 'Network error: ' + e.message;
+    btn.disabled = false; btn.textContent = 'Login';
+  }
+});
+
+function logout() {
+  clearToken();
+  location.reload();
+}
+
+// ========== INIT ==========
+function showDashboard() {
+  document.getElementById('login-wrap').style.display = 'none';
+  document.getElementById('dashboard').classList.add('active');
+  loadOrders();
+  // Auto refresh tiap 30 detik
+  setInterval(loadOrders, 30000);
+}
+
+// ========== API ==========
+async function api(path, options = {}) {
+  const res = await fetch(path, {
+    ...options,
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + getToken(),
+      ...(options.headers || {}),
+    },
+  });
+  if (res.status === 401) {
+    clearToken();
+    location.reload();
+    throw new Error('Session expired');
+  }
+  return res.json();
+}
+
+async function loadOrders() {
+  try {
+    const data = await api('/api/orders');
+    if (!data.ok) throw new Error(data.error);
+    orders = data.orders || [];
+    stats = data.stats || {};
+    renderStats();
+    renderTable();
+  } catch (e) {
+    document.getElementById('tbody').innerHTML =
+      `<tr><td colspan="9" class="empty">❌ Error: ${e.message}</td></tr>`;
+  }
+}
+
+async function updateStatus(id, status) {
+  await api(`/api/orders/${id}`, {
+    method: 'PATCH',
+    body: JSON.stringify({ status }),
+  });
+  loadOrders();
+}
+
+async function deleteOrder() {
+  if (!detailId) return;
+  if (!confirm('Hapus order ini? Tidak bisa di-undo.')) return;
+  await api(`/api/orders/${detailId}`, { method: 'DELETE' });
+  closeDetail();
+  loadOrders();
+}
+
+// ========== RENDER ==========
+function renderStats() {
+  document.getElementById('stats').innerHTML = `
+    <div class="stat-card yellow">
+      <div class="lbl">⏳ Pending</div>
+      <div class="val">${stats.pending || 0}</div>
+    </div>
+    <div class="stat-card blue">
+      <div class="lbl">🔧 Progress</div>
+      <div class="val">${stats.progress || 0}</div>
+    </div>
+    <div class="stat-card green">
+      <div class="lbl">✅ Done</div>
+      <div class="val">${stats.done || 0}</div>
+    </div>
+    <div class="stat-card red">
+      <div class="lbl">❌ Canceled</div>
+      <div class="val">${stats.cancel || 0}</div>
+    </div>
+    <div class="stat-card green">
+      <div class="lbl">💰 Revenue Bulan Ini</div>
+      <div class="val">${formatRp(stats.revenue_month)}</div>
+    </div>
+    <div class="stat-card green">
+      <div class="lbl">💎 Revenue Total</div>
+      <div class="val">${formatRp(stats.revenue)}</div>
+    </div>
+  `;
+}
+
+function renderTable() {
+  const search = document.getElementById('search').value.toLowerCase();
+  const filterStatus = document.getElementById('filter-status').value;
+
+  let filtered = orders.filter(o => {
+    if (filterStatus !== 'all' && o.status !== filterStatus) return false;
+    if (search) {
+      const s = (o.customer_name + ' ' + o.whatsapp + ' ' + (o.notes || '') + ' ' + (o.wheel || '')).toLowerCase();
+      if (!s.includes(search)) return false;
+    }
+    return true;
+  });
+
+  const tbody = document.getElementById('tbody');
+  if (filtered.length === 0) {
+    tbody.innerHTML = '<tr><td colspan="9" class="empty">Belum ada order yang cocok</td></tr>';
+    return;
+  }
+
+  tbody.innerHTML = filtered.map(o => `
+    <tr onclick="openDetail(${o.id})" style="cursor:pointer">
+      <td><strong>#${o.id}</strong></td>
+      <td>${formatDate(o.created_at)}</td>
+      <td>
+        <strong>${esc(o.customer_name)}</strong><br>
+        <a href="https://wa.me/${formatWA(o.whatsapp)}" class="wa-link" onclick="event.stopPropagation()" target="_blank">📱 ${esc(o.whatsapp)}</a>
+        ${o.city ? `<br><small style="opacity:.7">📍 ${esc(o.city)}</small>` : ''}
+      </td>
+      <td>${esc(o.service)}</td>
+      <td><strong>${formatRp(o.price)}</strong></td>
+      <td>${esc(o.wheel || '-')}</td>
+      <td>${esc(o.source || '-')}</td>
+      <td><span class="status-pill ${o.status}">${o.status}</span></td>
+      <td class="actions-cell" onclick="event.stopPropagation()">
+        <select onchange="updateStatus(${o.id}, this.value)">
+          <option value="pending" ${o.status==='pending'?'selected':''}>Pending</option>
+          <option value="progress" ${o.status==='progress'?'selected':''}>Progress</option>
+          <option value="done" ${o.status==='done'?'selected':''}>Done</option>
+          <option value="cancel" ${o.status==='cancel'?'selected':''}>Cancel</option>
+        </select>
+      </td>
+    </tr>
+  `).join('');
+}
+
+function openDetail(id) {
+  const o = orders.find(x => x.id === id);
+  if (!o) return;
+  detailId = id;
+  document.getElementById('d-id').textContent = id;
+  document.getElementById('detail-body').innerHTML = `
+    <div class="row"><span class="lbl">Tanggal Order</span><span class="val">${formatDate(o.created_at)}</span></div>
+    <div class="row"><span class="lbl">Customer</span><span class="val">${esc(o.customer_name)}</span></div>
+    <div class="row"><span class="lbl">WhatsApp</span><span class="val">${esc(o.whatsapp)}</span></div>
+    <div class="row"><span class="lbl">Kota</span><span class="val">${esc(o.city || '-')}</span></div>
+    <div class="row"><span class="lbl">Layanan</span><span class="val">${esc(o.service)}</span></div>
+    <div class="row"><span class="lbl">Harga</span><span class="val">${formatRp(o.price)}</span></div>
+    <div class="row"><span class="lbl">Wheel</span><span class="val">${esc(o.wheel || '-')}</span></div>
+    <div class="row"><span class="lbl">Metode</span><span class="val">${esc(o.method || '-')}</span></div>
+    <div class="row"><span class="lbl">Jadwal</span><span class="val">${esc(o.schedule || '-')}</span></div>
+    <div class="row"><span class="lbl">Game</span><span class="val">${esc(o.game || '-')}</span></div>
+    <div class="row"><span class="lbl">Source</span><span class="val">${esc(o.source || '-')}</span></div>
+    <div class="row"><span class="lbl">Status</span><span class="val"><span class="status-pill ${o.status}">${o.status}</span></span></div>
+    ${o.notes ? `<div class="row"><span class="lbl">Catatan</span><span class="val">${esc(o.notes)}</span></div>` : ''}
+  `;
+  const waBtn = document.getElementById('d-wa-btn');
+  waBtn.onclick = () => window.open(`https://wa.me/${formatWA(o.whatsapp)}?text=Halo%20${encodeURIComponent(o.customer_name)},%20konfirmasi%20order%20%23${o.id}%20kak`, '_blank');
+  document.getElementById('detail-modal').classList.add('show');
+}
+
+function closeDetail() {
+  document.getElementById('detail-modal').classList.remove('show');
+  detailId = null;
+}
+
+function exportCSV() {
+  const headers = ['ID','Tanggal','Customer','WhatsApp','Kota','Layanan','Harga','Wheel','Metode','Jadwal','Game','Source','Status','Catatan'];
+  const rows = orders.map(o => [
+    o.id, o.created_at, o.customer_name, o.whatsapp, o.city || '',
+    o.service, o.price, o.wheel || '', o.method || '', o.schedule || '',
+    o.game || '', o.source || '', o.status, o.notes || ''
+  ]);
+  const csv = [headers, ...rows].map(r => r.map(c => `"${(c+'').replace(/"/g,'""')}"`).join(',')).join('\n');
+  const blob = new Blob(['﻿' + csv], { type: 'text/csv;charset=utf-8' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `ahta_orders_${new Date().toISOString().split('T')[0]}.csv`;
+  a.click();
+}
+
+// ========== UTILS ==========
+function formatRp(n) { return 'Rp ' + (n || 0).toLocaleString('id-ID'); }
+function formatDate(s) {
+  if (!s) return '-';
+  const d = new Date(s.replace(' ', 'T'));
+  return d.toLocaleDateString('id-ID', { day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' });
+}
+function formatWA(wa) {
+  let n = (wa+'').replace(/\D/g, '');
+  if (n.startsWith('0')) n = '62' + n.slice(1);
+  if (!n.startsWith('62')) n = '62' + n;
+  return n;
+}
+function esc(s) { return (s+'').replace(/[<>&"]/g, c => ({ '<':'&lt;', '>':'&gt;', '&':'&amp;', '"':'&quot;' }[c])); }
+
+// ========== STARTUP ==========
+if (getToken()) {
+  // Try to use existing token
+  fetch('/api/orders', { headers: { 'Authorization': 'Bearer ' + getToken() } })
+    .then(r => {
+      if (r.ok) showDashboard();
+      else { clearToken(); }
+    });
+}
+</script>
+
+</body>
+</html>
