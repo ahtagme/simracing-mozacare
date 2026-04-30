@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AHTA Order Tracker — Internal Dashboard</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; font-family: 'Segoe UI', system-ui, sans-serif; }
+body {
+  background: #0a0a0f;
+  color: #e8e8ec;
+  padding: 16px;
+  line-height: 1.5;
+}
+.wrap { max-width: 1200px; margin: 0 auto; }
+h1 {
+  font-size: 24px;
+  margin-bottom: 6px;
+  background: linear-gradient(135deg, #ff2d55, #ff6b35);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.subtitle { font-size: 13px; opacity: .7; margin-bottom: 24px; }
+
+/* STATS */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-bottom: 24px;
+}
+.stat-card {
+  background: #15151c;
+  border: 1px solid #25252e;
+  padding: 16px;
+  border-radius: 12px;
+}
+.stat-card .lbl { font-size: 11px; opacity: .7; text-transform: uppercase; letter-spacing: .5px; }
+.stat-card .val { font-size: 24px; font-weight: 900; margin-top: 6px; }
+.stat-card.green .val { color: #00ff88; }
+.stat-card.yellow .val { color: #ffd43b; }
+.stat-card.red .val { color: #ff8787; }
+.stat-card.blue .val { color: #4dabf7; }
+
+/* FORM */
+.form-card {
+  background: #15151c;
+  border: 1px solid #25252e;
+  padding: 20px;
+  border-radius: 14px;
+  margin-bottom: 24px;
+}
+.form-card h2 { font-size: 16px; margin-bottom: 14px; }
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+.form-grid input, .form-grid select {
+  background: #0a0a0f;
+  border: 1px solid #25252e;
+  padding: 10px 12px;
+  border-radius: 8px;
+  color: #fff;
+  font-size: 14px;
+  font-family: inherit;
+}
+.form-grid input:focus, .form-grid select:focus {
+  outline: none;
+  border-color: #ff2d55;
+}
+.btn {
+  background: linear-gradient(135deg, #ff2d55, #ff6b35);
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-weight: 700;
+  cursor: pointer;
+  font-size: 14px;
+  font-family: inherit;
+  transition: transform .1s;
+}
+.btn:hover { transform: translateY(-1px); }
+.btn-sm { padding: 6px 12px; font-size: 12px; }
+.btn-secondary { background: #25252e; }
+.btn-success { background: #00ff88; color: #000; }
+.btn-danger { background: #ff2d55; }
+
+/* TABLE */
+.table-wrap {
+  background: #15151c;
+  border: 1px solid #25252e;
+  border-radius: 14px;
+  overflow: hidden;
+}
+table { width: 100%; border-collapse: collapse; }
+th, td {
+  padding: 12px;
+  text-align: left;
+  font-size: 13px;
+  border-bottom: 1px solid #25252e;
+}
+th {
+  background: #1c1c25;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: .5px;
+  opacity: .8;
+  font-weight: 700;
+}
+tr:hover { background: rgba(255,45,85,.05); }
+.status {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 50px;
+  font-size: 11px;
+  font-weight: 700;
+}
+.status.pending { background: rgba(255,212,59,.2); color: #ffd43b; }
+.status.progress { background: rgba(77,171,247,.2); color: #4dabf7; }
+.status.done { background: rgba(0,255,136,.2); color: #00ff88; }
+.status.cancel { background: rgba(255,45,85,.2); color: #ff2d55; }
+
+.actions { display: flex; gap: 6px; }
+.empty {
+  text-align: center;
+  padding: 40px 20px;
+  opacity: .5;
+}
+
+/* FILTER */
+.filter-bar {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+.filter-bar input, .filter-bar select {
+  background: #15151c;
+  border: 1px solid #25252e;
+  padding: 8px 12px;
+  border-radius: 8px;
+  color: #fff;
+  font-size: 13px;
+}
+
+.export-bar {
+  margin-top: 16px;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 720px) {
+  .stats { grid-template-columns: repeat(2, 1fr); }
+  .form-grid { grid-template-columns: 1fr; }
+  table { font-size: 11px; }
+  th, td { padding: 8px 6px; }
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<h1>📊 AHTA Order Tracker</h1>
+<p class="subtitle">Dashboard internal · Data tersimpan di browser kamu (localStorage)</p>
+
+<!-- STATS -->
+<div class="stats">
+  <div class="stat-card yellow">
+    <div class="lbl">⏳ Pending</div>
+    <div class="val" id="stat-pending">0</div>
+  </div>
+  <div class="stat-card blue">
+    <div class="lbl">🔧 In Progress</div>
+    <div class="val" id="stat-progress">0</div>
+  </div>
+  <div class="stat-card green">
+    <div class="lbl">✅ Done</div>
+    <div class="val" id="stat-done">0</div>
+  </div>
+  <div class="stat-card green">
+    <div class="lbl">💰 Total Revenue</div>
+    <div class="val" id="stat-revenue">Rp 0</div>
+  </div>
+</div>
+
+<!-- FORM -->
+<div class="form-card">
+  <h2>➕ Tambah Order Baru</h2>
+  <div class="form-grid">
+    <input type="text" id="customer" placeholder="Nama customer">
+    <input type="text" id="contact" placeholder="WA / IG / TikTok">
+    <select id="service">
+      <option value="">Pilih layanan...</option>
+      <option value="Install Game|50000">Install Game (Rp 50K)</option>
+      <option value="Setup Wheel|75000">Setup Steering Wheel (Rp 75K)</option>
+      <option value="Mod Grafik|100000">Mod Grafik (Rp 100K)</option>
+      <option value="Custom FFB|100000">Custom FFB Config (Rp 100K)</option>
+      <option value="Mod Track+Car|150000">Mod Track + Car (Rp 150K)</option>
+      <option value="PAKET LENGKAP|250000">PAKET LENGKAP (Rp 250K)</option>
+      <option value="Custom|0">Custom (input manual)</option>
+    </select>
+    <input type="number" id="amount" placeholder="Nominal (Rp)">
+    <input type="date" id="date">
+    <input type="text" id="notes" placeholder="Catatan (wheel apa, dll)">
+  </div>
+  <div style="margin-top:14px;display:flex;gap:10px">
+    <button class="btn" onclick="addOrder()">💾 Simpan Order</button>
+    <button class="btn btn-secondary" onclick="resetForm()">↺ Reset</button>
+  </div>
+</div>
+
+<!-- FILTER -->
+<div class="filter-bar">
+  <input type="text" id="search" placeholder="🔍 Cari nama/kontak..." oninput="renderOrders()">
+  <select id="filter-status" onchange="renderOrders()">
+    <option value="all">Semua status</option>
+    <option value="pending">Pending</option>
+    <option value="progress">In Progress</option>
+    <option value="done">Done</option>
+    <option value="cancel">Canceled</option>
+  </select>
+  <select id="filter-month" onchange="renderOrders()">
+    <option value="all">Semua bulan</option>
+  </select>
+</div>
+
+<!-- TABLE -->
+<div class="table-wrap">
+  <table>
+    <thead>
+      <tr>
+        <th>Tanggal</th>
+        <th>Customer</th>
+        <th>Kontak</th>
+        <th>Layanan</th>
+        <th>Nominal</th>
+        <th>Status</th>
+        <th>Catatan</th>
+        <th>Aksi</th>
+      </tr>
+    </thead>
+    <tbody id="orders-body"></tbody>
+  </table>
+</div>
+
+<!-- EXPORT/IMPORT -->
+<div class="export-bar">
+  <button class="btn btn-sm btn-secondary" onclick="exportData()">📥 Export Backup (JSON)</button>
+  <button class="btn btn-sm btn-secondary" onclick="document.getElementById('import-file').click()">📤 Import Backup</button>
+  <input type="file" id="import-file" accept=".json" style="display:none" onchange="importData(event)">
+  <button class="btn btn-sm btn-secondary" onclick="exportCSV()">📊 Export CSV (Excel)</button>
+  <button class="btn btn-sm btn-danger" onclick="clearAll()">🗑️ Reset Semua Data</button>
+</div>
+
+<p style="margin-top:24px;font-size:12px;opacity:.5;text-align:center">
+  💡 Tip: Bookmark halaman ini di browser. Backup secara berkala via Export.
+</p>
+
+</div>
+
+<script>
+// ===== STATE =====
+const STORAGE_KEY = 'ahta_orders_v1';
+let orders = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+
+// ===== ON LOAD =====
+document.getElementById('date').valueAsDate = new Date();
+document.getElementById('service').addEventListener('change', e => {
+  const val = e.target.value;
+  if (val && val !== 'Custom|0') {
+    const [name, price] = val.split('|');
+    document.getElementById('amount').value = price;
+  }
+});
+
+// ===== ADD ORDER =====
+function addOrder() {
+  const customer = document.getElementById('customer').value.trim();
+  const contact = document.getElementById('contact').value.trim();
+  const serviceVal = document.getElementById('service').value;
+  const amount = parseInt(document.getElementById('amount').value) || 0;
+  const date = document.getElementById('date').value;
+  const notes = document.getElementById('notes').value.trim();
+
+  if (!customer || !serviceVal || !amount || !date) {
+    alert('Lengkapi minimal: customer, layanan, nominal, tanggal.');
+    return;
+  }
+
+  const service = serviceVal.split('|')[0];
+
+  orders.push({
+    id: Date.now(),
+    customer, contact, service, amount, date, notes,
+    status: 'pending'
+  });
+
+  save();
+  resetForm();
+  renderOrders();
+  updateStats();
+  populateMonthFilter();
+}
+
+function resetForm() {
+  document.getElementById('customer').value = '';
+  document.getElementById('contact').value = '';
+  document.getElementById('service').value = '';
+  document.getElementById('amount').value = '';
+  document.getElementById('notes').value = '';
+  document.getElementById('date').valueAsDate = new Date();
+}
+
+// ===== RENDER =====
+function renderOrders() {
+  const tbody = document.getElementById('orders-body');
+  const search = document.getElementById('search').value.toLowerCase();
+  const filterStatus = document.getElementById('filter-status').value;
+  const filterMonth = document.getElementById('filter-month').value;
+
+  let filtered = orders.filter(o => {
+    const txt = (o.customer + o.contact + o.service + o.notes).toLowerCase();
+    if (search && !txt.includes(search)) return false;
+    if (filterStatus !== 'all' && o.status !== filterStatus) return false;
+    if (filterMonth !== 'all' && o.date.substring(0,7) !== filterMonth) return false;
+    return true;
+  });
+
+  filtered.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+  if (filtered.length === 0) {
+    tbody.innerHTML = '<tr><td colspan="8" class="empty">Belum ada order. Tambahkan order pertama di atas.</td></tr>';
+    return;
+  }
+
+  tbody.innerHTML = filtered.map(o => `
+    <tr>
+      <td>${formatDate(o.date)}</td>
+      <td><strong>${esc(o.customer)}</strong></td>
+      <td>${esc(o.contact || '-')}</td>
+      <td>${esc(o.service)}</td>
+      <td><strong>${formatRp(o.amount)}</strong></td>
+      <td>
+        <select class="status ${o.status}" onchange="changeStatus(${o.id}, this.value)" style="background:transparent;border:none;color:inherit;font-weight:700;cursor:pointer">
+          <option value="pending" ${o.status==='pending'?'selected':''}>Pending</option>
+          <option value="progress" ${o.status==='progress'?'selected':''}>In Progress</option>
+          <option value="done" ${o.status==='done'?'selected':''}>Done</option>
+          <option value="cancel" ${o.status==='cancel'?'selected':''}>Canceled</option>
+        </select>
+      </td>
+      <td>${esc(o.notes || '-')}</td>
+      <td class="actions">
+        <button class="btn btn-sm btn-danger" onclick="deleteOrder(${o.id})">🗑️</button>
+      </td>
+    </tr>
+  `).join('');
+}
+
+function changeStatus(id, status) {
+  const o = orders.find(x => x.id === id);
+  if (o) { o.status = status; save(); updateStats(); }
+}
+
+function deleteOrder(id) {
+  if (!confirm('Hapus order ini?')) return;
+  orders = orders.filter(o => o.id !== id);
+  save();
+  renderOrders();
+  updateStats();
+  populateMonthFilter();
+}
+
+// ===== STATS =====
+function updateStats() {
+  document.getElementById('stat-pending').textContent = orders.filter(o => o.status === 'pending').length;
+  document.getElementById('stat-progress').textContent = orders.filter(o => o.status === 'progress').length;
+  document.getElementById('stat-done').textContent = orders.filter(o => o.status === 'done').length;
+  const revenue = orders.filter(o => o.status === 'done').reduce((s, o) => s + o.amount, 0);
+  document.getElementById('stat-revenue').textContent = formatRp(revenue);
+}
+
+// ===== FILTERS =====
+function populateMonthFilter() {
+  const sel = document.getElementById('filter-month');
+  const cur = sel.value;
+  const months = [...new Set(orders.map(o => o.date.substring(0,7)))].sort().reverse();
+  sel.innerHTML = '<option value="all">Semua bulan</option>' +
+    months.map(m => `<option value="${m}" ${m===cur?'selected':''}>${monthName(m)}</option>`).join('');
+}
+
+function monthName(ym) {
+  const [y, m] = ym.split('-');
+  const names = ['Jan','Feb','Mar','Apr','Mei','Jun','Jul','Agu','Sep','Okt','Nov','Des'];
+  return `${names[parseInt(m)-1]} ${y}`;
+}
+
+// ===== EXPORT/IMPORT =====
+function exportData() {
+  const blob = new Blob([JSON.stringify(orders, null, 2)], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `ahta_orders_${new Date().toISOString().split('T')[0]}.json`;
+  a.click();
+}
+
+function importData(e) {
+  const file = e.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = ev => {
+    try {
+      const data = JSON.parse(ev.target.result);
+      if (!Array.isArray(data)) throw new Error('Format invalid');
+      if (!confirm(`Import ${data.length} order? Akan menggantikan data sekarang.`)) return;
+      orders = data;
+      save();
+      renderOrders();
+      updateStats();
+      populateMonthFilter();
+      alert('Import berhasil!');
+    } catch (err) {
+      alert('File tidak valid: ' + err.message);
+    }
+  };
+  reader.readAsText(file);
+}
+
+function exportCSV() {
+  const header = ['Tanggal','Customer','Kontak','Layanan','Nominal','Status','Catatan'];
+  const rows = orders.map(o => [o.date, o.customer, o.contact, o.service, o.amount, o.status, o.notes || '']);
+  const csv = [header, ...rows].map(r => r.map(c => `"${(c+'').replace(/"/g,'""')}"`).join(',')).join('\n');
+  const blob = new Blob(['﻿' + csv], { type: 'text/csv;charset=utf-8' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `ahta_orders_${new Date().toISOString().split('T')[0]}.csv`;
+  a.click();
+}
+
+function clearAll() {
+  if (!confirm('Yakin reset SEMUA data? Tidak bisa di-undo (kecuali ada backup).')) return;
+  if (!confirm('Beneran yakin? Konfirmasi sekali lagi.')) return;
+  orders = [];
+  save();
+  renderOrders();
+  updateStats();
+  populateMonthFilter();
+}
+
+// ===== UTILS =====
+function save() { localStorage.setItem(STORAGE_KEY, JSON.stringify(orders)); }
+function formatRp(n) { return 'Rp ' + (n || 0).toLocaleString('id-ID'); }
+function formatDate(s) {
+  const d = new Date(s);
+  return d.toLocaleDateString('id-ID', { day: '2-digit', month: 'short', year: 'numeric' });
+}
+function esc(s) { return (s+'').replace(/[<>&"]/g, c => ({ '<':'&lt;', '>':'&gt;', '&':'&amp;', '"':'&quot;' }[c])); }
+
+// ===== INIT =====
+renderOrders();
+updateStats();
+populateMonthFilter();
+</script>
+
+</body>
+</html>

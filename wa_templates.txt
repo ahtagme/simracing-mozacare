@@ -1,0 +1,333 @@
+============================================================
+   WHATSAPP TEMPLATES — AHTA SIM RACING SERVICE
+============================================================
+
+Cara pakai:
+- Copy-paste teks di bawah saat balas customer di WhatsApp
+- Ganti [PLACEHOLDER] dengan info aktual
+- Pakai WhatsApp Business untuk simpan jadi "Quick Reply"
+  (Settings -> Business Tools -> Quick replies)
+
+============================================================
+1. AUTO-REPLY GREETING (saat customer DM pertama kali)
+============================================================
+
+Halo kak! 🏎️ Makasih udah hubungi AHTA Sim Racing Service.
+
+Saya bantu setup sim racing kamu jadi maksimal!
+
+📋 *PRICELIST:*
+🎮 Install Game: Rp 50K
+🚗 Setup Steering Wheel: Rp 75K
+🎨 Mod Grafik (Reshade): Rp 100K
+🛠️ Custom FFB Config: Rp 100K
+🌐 Mod Track + Car: Rp 150K
+📦 *PAKET LENGKAP*: Rp 250K (hemat 25K!)
+
+⚡ Bisa remote via TeamViewer/AnyDesk
+🛡️ Garansi puas, setup ulang free
+💳 DP 50%, sisanya pas selesai
+
+Mau order yang mana kak? Atau ada pertanyaan? 😊
+
+
+============================================================
+2. KONFIRMASI ORDER (setelah customer pilih layanan)
+============================================================
+
+Siap kak! Ini detailnya:
+
+📦 *ORDER:*
+- Layanan: [LAYANAN]
+- Total: Rp [HARGA]
+- Estimasi waktu: [DURASI] jam
+
+📅 *Jadwal:*
+Kapan enaknya kerja kak? Bisa hari ini juga atau besok?
+
+💳 *Pembayaran:*
+DP 50% (Rp [DP_AMOUNT]) buat reservasi slot.
+Bisa transfer ke:
+- BCA: [NOREK] a.n [NAMA]
+- DANA/GoPay/OVO: [NOMOR]
+- QRIS: kirim screenshot, saya kirimin
+
+Konfirmasi DP, langsung saya garap.
+
+Detail wheel/PC/spec bisa share ya kak biar bisa siapin tools 🔧
+
+
+============================================================
+3. REMINDER PEMBAYARAN DP
+============================================================
+
+Halo kak [NAMA],
+
+Tinggal DP-nya nih biar saya bisa langsung mulai garap.
+
+DP 50% = Rp [DP_AMOUNT]
+Transfer ke:
+🏦 BCA [NOREK] - [NAMA]
+
+Atau e-wallet:
+📱 DANA/GoPay/OVO: [NOMOR]
+🔵 QRIS: bilang aja, dikirimin
+
+Setelah transfer, kirim bukti via chat ya. Slot saya hari ini limited 😊
+
+
+============================================================
+4. ORDER MULAI DIKERJAKAN
+============================================================
+
+Halo kak [NAMA]!
+
+DP udah masuk ✅. Saya mulai garap sekarang ya.
+
+Estimasi selesai: [WAKTU] WIB.
+
+Kalau pakai remote, nanti saya minta TeamViewer ID & password ya. Jangan lupa:
+- Wheel terpasang & nyala
+- Game udah ke-install (kalau setup wheel only)
+- Internet stabil
+
+Update progress nanti via chat 🔧
+
+
+============================================================
+5. UPDATE PROGRESS (di tengah pengerjaan)
+============================================================
+
+Update kak:
+✅ [STEP_1]
+✅ [STEP_2]
+🔧 Lagi proses [STEP_3]
+
+Estimasi sisa ~[WAKTU] menit lagi. Stay tuned!
+
+
+============================================================
+6. SELESAI — MINTA PELUNASAN
+============================================================
+
+DONE kak! 🎉
+
+Hasil:
+✅ [DETAIL_1]
+✅ [DETAIL_2]
+✅ [DETAIL_3]
+
+Silakan kakak coba dulu ya. Test drive sekitar 10-15 menit, rasain feeling-nya. Kalau ada yang belum pas, bilang aja, saya tune ulang FREE.
+
+Pelunasan: Rp [SISA_BAYAR]
+Transfer ke nomor yang sama ya.
+
+Setelah ok semua, saya kirimin file config + tutorial maintenance basic 📁
+
+
+============================================================
+7. POST-ORDER (minta testimoni & follow)
+============================================================
+
+Makasih banyak kak [NAMA] udah pakai jasa saya! 🙏
+
+Buat support service ini, boleh banget kalau kakak:
+
+⭐ Kasih *bintang 5 + testimoni* — copy paste ke chat ini, nanti saya share di sosmed (foto kakak ga diumbar tenang aja 😅)
+
+📲 *Follow akun saya:*
+- TikTok: @ahtaaa_ (300K, konten sim racing)
+- TikTok: @mozacare (shop sim racing gear)
+- IG: @ahta.idd
+
+🛒 *Butuh upgrade gear?* Cek shop saya di TikTok @mozacare keranjang kuning, ada diskon spesial buat customer.
+
+🔁 Kalau ada masalah teknis 7 hari ke depan, langsung chat saya. *Garansi after-service.*
+
+Sukses sim racing-nya! Sampai jumpa di track 🏎️💨
+
+
+============================================================
+8. CUSTOMER COMPLAIN / GA PUAS
+============================================================
+
+Mohon maaf kak [NAMA], saya bantu fix sekarang.
+
+Bisa kasih tau detail masalahnya?
+- Apa yang ga kerasa enak?
+- Mobil/track apa yang lagi dipakai?
+- Bisa share video/screenshot?
+
+Setup ulang FREE kak, sampai pas. Itu garansi saya 🛡️
+
+Kalau urgent, bisa remote sekarang juga.
+
+
+============================================================
+9. NEGOSIASI HARGA (kalau customer minta diskon)
+============================================================
+
+Saya appreciate kak udah tertarik pakai jasa saya 🙏
+
+Untuk harga, ini udah harga terbaik buat single service. Tapi ada beberapa cara hemat:
+
+💡 *Opsi hemat:*
+1. Ambil PAKET LENGKAP (Rp 250K) — hemat 25K dari beli satuan
+2. Ajak temen, diskon 10% kalau order 2+ orang sekaligus
+3. Repeat customer dapat diskon 15%
+
+Atau kalau budget kakak lagi tight, kasih tau aja yang paling priority dulu, kita cari yang efisien.
+
+
+============================================================
+10. CUSTOMER GA RESPON >24 JAM
+============================================================
+
+Halo kak [NAMA] 👋
+
+Mau follow up order setup wheel-nya. Masih jadi nih?
+
+Kalau iya, slot saya minggu ini tinggal [N] aja. Konfirmasi DP biar bisa di-book.
+
+Kalau kakak masih pertimbang, no problem, saya stand by. Tapi mau kasih tau aja kalau weekend biasanya rame, antri jadi panjang.
+
+Reply ya kak 😊
+
+
+============================================================
+11. UPSELL — TAWARIN PRODUK SHOP @MOZACARE
+============================================================
+
+Btw kak, kalau berminat upgrade gear, saya juga ada shop:
+
+🛒 *@mozacare* (TikTok keranjang kuning)
+- Steering wheel premium
+- Pedal upgrade
+- Rig setup
+- Aksesoris (mounting, shifter, dll)
+
+Buat customer service saya, ada *diskon 10%* khusus. Kasih tau aja kode "AHTA10" pas checkout.
+
+Atau saya bantu rekomen wheel yang cocok sama setup kakak — gratis konsultasi 😉
+
+
+============================================================
+12. PAID PROMO SLOT (kalau ada brand mau endorse)
+============================================================
+
+Halo [NAMA BRAND]!
+
+Terima kasih sudah tertarik kolaborasi.
+
+🎯 *AHTA Sim Racing — Profile:*
+- TikTok @ahtaaa_ : 300K+ followers
+- TikTok @mozacare : Sim racing shop active
+- IG @ahta.idd
+- Niche: Sim racing, steering wheel, gaming
+
+📊 *Engagement:*
+- Avg views per video: 50-100K
+- Top video: 715K views
+- Live stream daily: 200-500 concurrent viewers
+
+💼 *Available Packages:*
+1. Single video review/promo: Rp [HARGA]
+2. Pinned video 1 minggu: Rp [HARGA]
+3. Live demo product: Rp [HARGA]
+4. Long-term ambassador (3 bulan): Rp [HARGA]
+5. Exclusive partnership: nego
+
+Saya kirimkan media kit dan rate card lengkap via email kalau berkenan. Bisa share email PIC yang saya hubungi?
+
+Best regards,
+AHTA
+
+
+============================================================
+13. AUTO-REPLY OFF HOURS (saat saya tidur/sibuk)
+============================================================
+
+Halo kak! 🌙
+
+Saat ini saya offline (jam kerja saya: 09.00-22.00 WIB).
+
+Tapi tenang, pesan kakak udah masuk. Akan saya balas pas saya online.
+
+Sambil nunggu, kakak bisa:
+📋 Lihat pricelist lengkap: [LINK_LANDING_PAGE]
+🛒 Cek shop: tiktok.com/@mozacare
+🎬 Follow TikTok: tiktok.com/@ahtaaa_
+
+Makasih kesabarannya 🙏
+
+
+============================================================
+TIPS PAKAI WHATSAPP BUSINESS
+============================================================
+
+1. Daftar WhatsApp Business (gratis di Play Store/App Store)
+   - Konversi nomor WA pribadi atau pakai nomor baru
+
+2. Setup Quick Replies:
+   - Settings > Business Tools > Quick replies
+   - Add shortcut: /greeting, /price, /payment, /done, dll
+   - Tinggal ketik shortcut, message langsung muncul
+
+3. Setup Auto Reply:
+   - Settings > Business Tools > Greeting message
+   - Aktifkan: "Send to people who message you for the first time"
+   - Paste template #1 di atas
+
+4. Setup Away Message (jam offline):
+   - Settings > Business Tools > Away message
+   - Schedule: 22:00 - 09:00
+   - Paste template #13
+
+5. Catalog Produk:
+   - Settings > Business Tools > Catalog
+   - Add produk + harga
+   - Customer bisa browse langsung di chat
+
+6. Labels untuk track customer:
+   - Buat label: "Pending Payment", "In Progress", "Done", "VIP"
+   - Drag chat ke label sesuai status
+
+7. Backup chat tiap minggu:
+   - Settings > Chats > Chat backup > Backup to Google Drive
+
+
+============================================================
+TIPS NEGOSIASI & CLOSING
+============================================================
+
+✅ JANGAN langsung kasih harga — tanya kebutuhan dulu
+✅ Tawarkan PAKET (anchor pricing) dulu, baru single service
+✅ Selalu mention "garansi" — turunin risiko persepsi customer
+✅ Pakai social proof: "udah handle 100+ customer"
+✅ Urgency: "slot weekend ini tinggal [N]"
+✅ Bonus: "free file config + tutorial PDF"
+
+❌ JANGAN diskon di awal — kasih nilai dulu
+❌ JANGAN balas chat lebih dari 30 menit (lost customer)
+❌ JANGAN pakai bahasa terlalu formal — santai aja
+❌ JANGAN promosi @mozacare di awal — tunggu setelah closing
+
+
+============================================================
+SCRIPT VOICE NOTE (kalau mau pakai VN)
+============================================================
+
+VN GREETING (~15 detik):
+
+"Halo bro/sis, makasih ya udah chat saya.
+Buat setup wheel, paling cepet 1 jam sampai 1 setengah jam,
+udah sama install + tune FFB. Hasilnya beneran beda jauh sama
+default — kerasa kayak real driving.
+Kalau langsung order paket lengkap, hemat 25 ribu.
+Tinggal konfirmasi mau yang mana, langsung saya jadwalin."
+
+
+============================================================
+
+Last update: 2026-04-30
+Versi: 1.0

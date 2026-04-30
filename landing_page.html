@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AHTA — Sim Racing Service Indonesia</title>
+<meta name="description" content="Jasa setup steering wheel, install game, mod grafik. Mulai Rp 50K. Garansi puas.">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; }
+body {
+  background: #0a0a0f;
+  color: #e8e8ec;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+.wrap { max-width: 720px; margin: 0 auto; padding: 0 16px; }
+
+/* HERO */
+.hero {
+  background:
+    radial-gradient(circle at 20% 50%, rgba(255,45,85,.3) 0%, transparent 50%),
+    radial-gradient(circle at 80% 30%, rgba(255,107,53,.25) 0%, transparent 50%),
+    linear-gradient(180deg, #15151c 0%, #0a0a0f 100%);
+  padding: 60px 16px 40px;
+  text-align: center;
+  position: relative;
+}
+.hero .badge {
+  display: inline-block;
+  background: rgba(255,45,85,.15);
+  color: #ff8fa3;
+  padding: 6px 14px;
+  border-radius: 50px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  border: 1px solid rgba(255,45,85,.4);
+  margin-bottom: 16px;
+}
+.hero h1 {
+  font-size: 36px;
+  font-weight: 900;
+  letter-spacing: -1px;
+  margin-bottom: 10px;
+  background: linear-gradient(135deg, #fff 0%, #ff8fa3 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.hero p { font-size: 16px; opacity: .85; margin-bottom: 24px; }
+.hero .stats {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  margin-top: 24px;
+}
+.hero .stat { text-align: center; }
+.hero .stat .num {
+  font-size: 24px;
+  font-weight: 900;
+  background: linear-gradient(135deg, #ff2d55, #ff6b35);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: block;
+}
+.hero .stat .lbl { font-size: 11px; opacity: .7; text-transform: uppercase; letter-spacing: .5px; }
+
+/* SECTION */
+.section { padding: 40px 0; }
+.section h2 {
+  font-size: 24px;
+  font-weight: 800;
+  margin-bottom: 24px;
+  text-align: center;
+}
+.section h2 .icon { margin-right: 8px; }
+
+/* PRICING CARDS */
+.pricing { display: flex; flex-direction: column; gap: 14px; }
+.price-card {
+  background: linear-gradient(135deg, #15151c, #1c1c25);
+  border: 1px solid #25252e;
+  border-radius: 16px;
+  padding: 20px;
+  position: relative;
+  transition: transform .2s, border-color .2s;
+}
+.price-card:hover { transform: translateY(-2px); border-color: #ff2d55; }
+.price-card.featured {
+  border-color: #ff2d55;
+  background: linear-gradient(135deg, rgba(255,45,85,.1), rgba(255,107,53,.05));
+}
+.price-card.featured::before {
+  content: '⭐ PALING DICARI';
+  position: absolute;
+  top: -10px;
+  left: 20px;
+  background: #ff2d55;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 800;
+  padding: 4px 10px;
+  border-radius: 50px;
+  letter-spacing: .5px;
+}
+.price-card .top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 12px;
+}
+.price-card .name {
+  font-size: 18px;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.price-card .price {
+  font-size: 24px;
+  font-weight: 900;
+  color: #00ff88;
+  white-space: nowrap;
+}
+.price-card .desc { font-size: 13px; opacity: .8; margin-bottom: 14px; }
+.price-card ul { list-style: none; margin-bottom: 16px; }
+.price-card li {
+  font-size: 13px;
+  padding: 4px 0 4px 24px;
+  position: relative;
+  opacity: .85;
+}
+.price-card li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  color: #00ff88;
+  font-weight: 800;
+}
+.price-card .btn {
+  display: block;
+  width: 100%;
+  background: linear-gradient(135deg, #ff2d55, #ff6b35);
+  color: #fff;
+  text-align: center;
+  padding: 12px;
+  border-radius: 10px;
+  font-weight: 700;
+  font-size: 15px;
+  transition: all .2s;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+}
+.price-card .btn:hover { transform: scale(1.02); box-shadow: 0 4px 20px rgba(255,45,85,.4); }
+
+/* FEATURES */
+.features {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+.feature {
+  background: #15151c;
+  border: 1px solid #25252e;
+  padding: 16px;
+  border-radius: 12px;
+  text-align: center;
+}
+.feature .ico { font-size: 24px; margin-bottom: 8px; }
+.feature .ttl { font-weight: 700; font-size: 14px; margin-bottom: 4px; }
+.feature .sub { font-size: 12px; opacity: .7; }
+
+/* TESTIMONIALS */
+.testi-list { display: flex; flex-direction: column; gap: 12px; }
+.testi {
+  background: #15151c;
+  border-left: 3px solid #ff2d55;
+  padding: 16px;
+  border-radius: 8px;
+}
+.testi .stars { color: #ffd43b; margin-bottom: 6px; font-size: 14px; }
+.testi .text { font-size: 14px; opacity: .9; margin-bottom: 8px; font-style: italic; }
+.testi .who { font-size: 12px; opacity: .7; }
+
+/* FAQ */
+.faq-item {
+  background: #15151c;
+  border: 1px solid #25252e;
+  border-radius: 12px;
+  margin-bottom: 8px;
+  overflow: hidden;
+}
+.faq-item summary {
+  padding: 14px 18px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 14px;
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+}
+.faq-item summary::after { content: '+'; font-size: 20px; opacity: .5; }
+.faq-item[open] summary::after { content: '−'; }
+.faq-item .body {
+  padding: 0 18px 16px;
+  font-size: 13px;
+  opacity: .8;
+}
+
+/* CTA FLOATING */
+.cta-float {
+  position: fixed;
+  bottom: 16px;
+  left: 16px;
+  right: 16px;
+  max-width: 688px;
+  margin: 0 auto;
+  background: #25d366;
+  padding: 14px 20px;
+  border-radius: 50px;
+  text-align: center;
+  font-weight: 800;
+  font-size: 15px;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  box-shadow: 0 8px 30px rgba(37,211,102,.4);
+  z-index: 100;
+  animation: pulse 2s infinite;
+}
+@keyframes pulse {
+  0%,100% { transform: scale(1); }
+  50% { transform: scale(1.02); }
+}
+
+/* FOOTER */
+.footer {
+  text-align: center;
+  padding: 40px 16px 100px;
+  opacity: .5;
+  font-size: 12px;
+}
+.footer a { color: #ff8fa3; text-decoration: none; }
+
+/* SOCIAL LINKS */
+.socials {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin: 20px 0;
+  flex-wrap: wrap;
+}
+.social-btn {
+  background: #15151c;
+  border: 1px solid #25252e;
+  padding: 10px 18px;
+  border-radius: 50px;
+  color: #fff;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 600;
+  transition: all .2s;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.social-btn:hover { background: #25252e; border-color: #ff2d55; }
+
+/* ============= MODAL FORM ============= */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.85);
+  backdrop-filter: blur(8px);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 16px;
+  animation: fadeIn .25s ease;
+}
+.modal-overlay.show { display: flex; }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+.modal {
+  background: linear-gradient(180deg, #1c1c25, #15151c);
+  border: 1px solid #25252e;
+  border-radius: 20px;
+  width: 100%;
+  max-width: 500px;
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: 28px;
+  position: relative;
+  animation: slideUp .3s ease;
+}
+@keyframes slideUp { from { transform: translateY(30px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+
+.modal-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: #25252e;
+  border: none;
+  color: #fff;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background .15s;
+}
+.modal-close:hover { background: #ff2d55; }
+
+.modal-header {
+  border-bottom: 1px solid #25252e;
+  padding-bottom: 16px;
+  margin-bottom: 20px;
+}
+.modal-header .badge {
+  display: inline-block;
+  background: rgba(255,45,85,.15);
+  color: #ff8fa3;
+  padding: 4px 10px;
+  border-radius: 50px;
+  font-size: 11px;
+  font-weight: 700;
+  margin-bottom: 6px;
+  border: 1px solid rgba(255,45,85,.3);
+}
+.modal-header h3 { font-size: 20px; font-weight: 800; margin-bottom: 4px; }
+.modal-header .price-info { font-size: 22px; font-weight: 900; color: #00ff88; }
+
+.form-group { margin-bottom: 14px; }
+.form-group label {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: #ff8fa3;
+}
+.form-group label .req { color: #ff2d55; }
+.form-group input, .form-group select, .form-group textarea {
+  width: 100%;
+  background: #0a0a0f;
+  border: 1px solid #25252e;
+  padding: 12px 14px;
+  border-radius: 10px;
+  color: #fff;
+  font-size: 14px;
+  font-family: inherit;
+  transition: border-color .15s;
+}
+.form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+  outline: none;
+  border-color: #ff2d55;
+}
+.form-group textarea { resize: vertical; min-height: 70px; font-family: inherit; }
+.form-group .hint { font-size: 11px; opacity: .6; margin-top: 4px; }
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.btn-submit {
+  width: 100%;
+  background: linear-gradient(135deg, #25d366, #1ebe5d);
+  color: #fff;
+  border: none;
+  padding: 14px;
+  border-radius: 12px;
+  font-weight: 800;
+  font-size: 16px;
+  cursor: pointer;
+  transition: transform .15s;
+  font-family: inherit;
+  margin-top: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+.btn-submit:hover { transform: translateY(-1px); box-shadow: 0 4px 20px rgba(37,211,102,.4); }
+.btn-submit .icon { font-size: 18px; }
+
+.modal-footer {
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px solid #25252e;
+  font-size: 11px;
+  opacity: .6;
+  text-align: center;
+}
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <span class="badge">🏎️ AHTA · SIM RACING SPECIALIST</span>
+  <h1>Setup Steering Wheel<br>Yang Beneran Real Feel</h1>
+  <p>Install game, mod grafik, setup wheel — semua beres dalam 1-3 jam.<br>Mulai <strong style="color:#00ff88">Rp 50.000</strong> · Bisa remote</p>
+
+  <a href="#pricing" class="social-btn" style="background:#ff2d55;border-color:#ff2d55;margin-top:8px">
+    📋 Lihat Pricelist ↓
+  </a>
+
+  <div class="stats">
+    <div class="stat"><span class="num">300K+</span><span class="lbl">Followers</span></div>
+    <div class="stat"><span class="num">200K+</span><span class="lbl">Likes</span></div>
+    <div class="stat"><span class="num">3+ thn</span><span class="lbl">Pengalaman</span></div>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <!-- FEATURES -->
+  <div class="section">
+    <div class="features">
+      <div class="feature"><div class="ico">⚡</div><div class="ttl">Cepat 1-3 Jam</div><div class="sub">Setup beres hari yang sama</div></div>
+      <div class="feature"><div class="ico">🔧</div><div class="ttl">All Brand Wheel</div><div class="sub">Logitech · MOZA · Thrustmaster · Fanatec</div></div>
+      <div class="feature"><div class="ico">💻</div><div class="ttl">Bisa Remote</div><div class="sub">TeamViewer / AnyDesk</div></div>
+      <div class="feature"><div class="ico">🛡️</div><div class="ttl">Garansi Puas</div><div class="sub">Setup ulang kalau belum oke</div></div>
+    </div>
+  </div>
+
+  <!-- PRICING -->
+  <div class="section" id="pricing">
+    <h2><span class="icon">💰</span>Pricelist</h2>
+    <div class="pricing">
+
+      <div class="price-card">
+        <div class="top">
+          <div class="name">🎮 Install Game</div>
+          <div class="price">Rp 50K</div>
+        </div>
+        <div class="desc">Assetto Corsa / Forza / Racing game lain</div>
+        <ul><li>Game ready to play</li><li>Update terbaru</li><li>~1 jam pengerjaan</li></ul>
+        <button class="btn" onclick="openOrderForm('Install Game', 50000)">📝 Order Sekarang</button>
+      </div>
+
+      <div class="price-card">
+        <div class="top">
+          <div class="name">🚗 Setup Steering Wheel</div>
+          <div class="price">Rp 75K</div>
+        </div>
+        <div class="desc">Konfigurasi wheel sampai feeling pas</div>
+        <ul><li>FFB tuning per mobil</li><li>Button mapping optimal</li><li>Test drive sampai pas</li></ul>
+        <button class="btn" onclick="openOrderForm('Setup Steering Wheel', 75000)">📝 Order Sekarang</button>
+      </div>
+
+      <div class="price-card">
+        <div class="top">
+          <div class="name">🎨 Mod Grafik</div>
+          <div class="price">Rp 100K</div>
+        </div>
+        <div class="desc">Reshade + ENB untuk grafik realistis</div>
+        <ul><li>Visual kayak real life</li><li>FPS tetap stabil</li><li>Custom preset request</li></ul>
+        <button class="btn" onclick="openOrderForm('Mod Grafik', 100000)">📝 Order Sekarang</button>
+      </div>
+
+      <div class="price-card featured">
+        <div class="top">
+          <div class="name">📦 PAKET LENGKAP</div>
+          <div class="price">Rp 250K</div>
+        </div>
+        <div class="desc">All-in-one: Install + Mod + Setup wheel</div>
+        <ul>
+          <li>Install game lengkap + update</li>
+          <li>Mod grafik premium (Reshade/ENB)</li>
+          <li>Setup steering wheel + FFB tuning</li>
+          <li>Test sampai mantap</li>
+          <li><strong style="color:#00ff88">Hemat Rp 25.000!</strong></li>
+        </ul>
+        <button class="btn" onclick="openOrderForm('PAKET LENGKAP (Install + Mod + Setup)', 250000)">⭐ Order PAKET — Rp 250K</button>
+      </div>
+
+      <div class="price-card">
+        <div class="top">
+          <div class="name">🌐 Mod Track + Car</div>
+          <div class="price">Rp 150K</div>
+        </div>
+        <div class="desc">Tambah track & mobil baru ke Assetto</div>
+        <ul><li>10+ track populer</li><li>Mobil drift / GT / formula</li><li>Tested no crash</li></ul>
+        <button class="btn" onclick="openOrderForm('Mod Track + Car', 150000)">📝 Order Sekarang</button>
+      </div>
+
+      <div class="price-card">
+        <div class="top">
+          <div class="name">🛠️ Custom FFB Config</div>
+          <div class="price">Rp 100K</div>
+        </div>
+        <div class="desc">Force feedback tuning advance</div>
+        <ul><li>Per mobil setting</li><li>Cocok untuk pro</li><li>File config dikasih</li></ul>
+        <button class="btn" onclick="openOrderForm('Custom FFB Config', 100000)">📝 Order Sekarang</button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- SOCIAL LINKS -->
+  <div class="section">
+    <h2><span class="icon">📱</span>Follow Saya</h2>
+    <div class="socials">
+      <a href="https://tiktok.com/@ahtaaa_" class="social-btn">🎵 TikTok @ahtaaa_</a>
+      <a href="https://instagram.com/ahta.idd" class="social-btn">📸 IG @ahta.idd</a>
+      <a href="https://tiktok.com/@mozacare" class="social-btn">🛒 Shop @mozacare</a>
+      <a href="https://saweria.co/mozacare" class="social-btn">💝 Saweria</a>
+    </div>
+  </div>
+
+  <!-- TESTIMONIALS -->
+  <div class="section">
+    <h2><span class="icon">⭐</span>Apa Kata Customer</h2>
+    <div class="testi-list">
+      <div class="testi">
+        <div class="stars">★★★★★</div>
+        <div class="text">"Setup wheel-nya beneran beda, kerasa kayak real driving. Mantap bro!"</div>
+        <div class="who">— Andi, Jakarta</div>
+      </div>
+      <div class="testi">
+        <div class="stars">★★★★★</div>
+        <div class="text">"Cepet banget, 2 jam udah selesai semua. Mod grafiknya kerennn."</div>
+        <div class="who">— Rico, Surabaya</div>
+      </div>
+      <div class="testi">
+        <div class="stars">★★★★★</div>
+        <div class="text">"Recomended! Remote via TeamViewer, ga ribet, hasil oke."</div>
+        <div class="who">— Budi, Bandung</div>
+      </div>
+    </div>
+    <p style="text-align:center;margin-top:16px;font-size:12px;opacity:.6;font-style:italic">
+      *Testimoni akan terus di-update dari customer terbaru
+    </p>
+  </div>
+
+  <!-- FAQ -->
+  <div class="section">
+    <h2><span class="icon">❓</span>FAQ</h2>
+    <details class="faq-item">
+      <summary>Berapa lama pengerjaan?</summary>
+      <div class="body">Tergantung paket: install game ~1 jam, setup wheel ~30-60 menit, paket lengkap 2-3 jam. Bisa diatur sesuai jadwal kamu.</div>
+    </details>
+    <details class="faq-item">
+      <summary>Harus datang langsung atau bisa remote?</summary>
+      <div class="body">Bisa keduanya! Remote pakai TeamViewer/AnyDesk (gratis). Cocok kalau lokasi jauh atau gak punya waktu nungguin.</div>
+    </details>
+    <details class="faq-item">
+      <summary>Wheel apa aja yang di-support?</summary>
+      <div class="body">Logitech (G29, G27, G923, G920), MOZA Racing (semua tipe), Thrustmaster (T128, T300, TX), Fanatec, Cammus, dan brand lainnya. Confirm dulu via WA.</div>
+    </details>
+    <details class="faq-item">
+      <summary>Bayar di awal atau di akhir?</summary>
+      <div class="body">DP 50% di awal, sisanya setelah selesai dan kamu udah test drive. Aman buat kedua belah pihak.</div>
+    </details>
+    <details class="faq-item">
+      <summary>Kalau gak puas gimana?</summary>
+      <div class="body">Setup ulang gratis sampai pas. Garansi 7 hari kalau ada masalah teknis dari pekerjaan saya.</div>
+    </details>
+    <details class="faq-item">
+      <summary>Metode pembayaran?</summary>
+      <div class="body">Bank Transfer (BCA/Mandiri/BRI), e-wallet (DANA/GoPay/OVO/ShopeePay), QRIS. Detail di-share via WA.</div>
+    </details>
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  <div>© 2026 AHTA Sim Racing Service · Indonesia</div>
+  <div style="margin-top:8px">Powered by passion for sim racing 🏎️</div>
+</div>
+
+<!-- FLOATING CTA - Open form for general inquiry -->
+<button class="cta-float" onclick="openOrderForm('Konsultasi Umum', 0)">
+  💬 Konsultasi & Order Sekarang
+</button>
+
+<!-- ============ MODAL ORDER FORM ============ -->
+<div class="modal-overlay" id="orderModal" onclick="if(event.target===this) closeOrderForm()">
+  <div class="modal">
+    <button class="modal-close" onclick="closeOrderForm()">×</button>
+    <div class="modal-header">
+      <span class="badge">📝 ORDER FORM</span>
+      <h3 id="modal-service-name">Layanan</h3>
+      <div class="price-info" id="modal-service-price">Rp 0</div>
+    </div>
+
+    <form id="orderForm" onsubmit="submitOrder(event)">
+
+      <div class="form-group">
+        <label>Nama Lengkap <span class="req">*</span></label>
+        <input type="text" id="f-name" required placeholder="Contoh: Budi Santoso">
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>No. WhatsApp <span class="req">*</span></label>
+          <input type="tel" id="f-wa" required placeholder="08xxxxxxxxxx">
+          <div class="hint">Untuk konfirmasi & komunikasi</div>
+        </div>
+        <div class="form-group">
+          <label>Kota</label>
+          <input type="text" id="f-city" placeholder="Jakarta / Surabaya / dll">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Brand & Tipe Wheel <span class="req">*</span></label>
+        <select id="f-wheel" required>
+          <option value="">— Pilih wheel kamu —</option>
+          <optgroup label="Logitech">
+            <option>Logitech G29</option>
+            <option>Logitech G27</option>
+            <option>Logitech G923</option>
+            <option>Logitech G920</option>
+          </optgroup>
+          <optgroup label="MOZA Racing">
+            <option>MOZA R3</option>
+            <option>MOZA R5</option>
+            <option>MOZA R9</option>
+            <option>MOZA R12</option>
+            <option>MOZA R16/R21</option>
+          </optgroup>
+          <optgroup label="Thrustmaster">
+            <option>Thrustmaster T128</option>
+            <option>Thrustmaster T248</option>
+            <option>Thrustmaster T300 RS</option>
+            <option>Thrustmaster TX</option>
+            <option>Thrustmaster TS-PC</option>
+          </optgroup>
+          <optgroup label="Fanatec">
+            <option>Fanatec CSL DD</option>
+            <option>Fanatec ClubSport DD</option>
+            <option>Fanatec Podium</option>
+          </optgroup>
+          <option>Brand lain (tulis di catatan)</option>
+          <option>Belum punya wheel</option>
+        </select>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>Metode Service <span class="req">*</span></label>
+          <select id="f-method" required>
+            <option value="">— Pilih —</option>
+            <option>Remote (TeamViewer/AnyDesk)</option>
+            <option>Datang ke rumah customer</option>
+            <option>Customer ke tempat saya</option>
+            <option>Belum tau, butuh saran</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Kapan Mau Dikerjain?</label>
+          <select id="f-when">
+            <option>ASAP (hari ini juga)</option>
+            <option>Besok</option>
+            <option>Weekend ini</option>
+            <option>Minggu depan</option>
+            <option>Fleksibel</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Game yang dipakai</label>
+        <input type="text" id="f-game" placeholder="Contoh: Assetto Corsa, ACC, iRacing">
+      </div>
+
+      <div class="form-group">
+        <label>Catatan Tambahan</label>
+        <textarea id="f-notes" placeholder="Apa yang ingin di-tweak? Spec PC? Request khusus? (opsional)"></textarea>
+      </div>
+
+      <div class="form-group">
+        <label>Tau saya dari mana?</label>
+        <select id="f-source">
+          <option value="">— Pilih —</option>
+          <option>TikTok @ahtaaa_</option>
+          <option>TikTok @mozacare</option>
+          <option>Instagram</option>
+          <option>Live TikTok</option>
+          <option>Teman / referensi</option>
+          <option>Lainnya</option>
+        </select>
+      </div>
+
+      <button type="submit" class="btn-submit">
+        <span class="icon">💬</span>
+        <span>Lanjut ke WhatsApp</span>
+      </button>
+
+      <div class="modal-footer">
+        🔒 Data kamu aman · Tidak akan di-share ke pihak ketiga
+      </div>
+
+    </form>
+  </div>
+</div>
+
+<script>
+// ============ KONFIGURASI ============
+// PENTING: Ganti nomor WA di bawah dengan nomor kamu
+// Format: 62 + nomor HP tanpa angka 0 di depan
+// Contoh: 0812-3456-7890 → 6281234567890
+const WA_NUMBER = '628986606040';
+
+// ============ STATE ============
+let currentService = '';
+let currentPrice = 0;
+
+// ============ MODAL ============
+function openOrderForm(serviceName, price) {
+  currentService = serviceName;
+  currentPrice = price;
+  document.getElementById('modal-service-name').textContent = serviceName;
+  document.getElementById('modal-service-price').textContent =
+    price > 0 ? 'Rp ' + price.toLocaleString('id-ID') : 'Konsultasi Gratis';
+  document.getElementById('orderModal').classList.add('show');
+  document.body.style.overflow = 'hidden';
+  setTimeout(() => document.getElementById('f-name').focus(), 300);
+}
+
+function closeOrderForm() {
+  document.getElementById('orderModal').classList.remove('show');
+  document.body.style.overflow = '';
+}
+
+// Tutup dengan Escape
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') closeOrderForm();
+});
+
+// ============ SUBMIT FORM → WHATSAPP ============
+function submitOrder(e) {
+  e.preventDefault();
+
+  const name = document.getElementById('f-name').value.trim();
+  const wa = document.getElementById('f-wa').value.trim();
+  const city = document.getElementById('f-city').value.trim();
+  const wheel = document.getElementById('f-wheel').value;
+  const method = document.getElementById('f-method').value;
+  const when = document.getElementById('f-when').value;
+  const game = document.getElementById('f-game').value.trim();
+  const notes = document.getElementById('f-notes').value.trim();
+  const source = document.getElementById('f-source').value;
+
+  // Format pesan WhatsApp
+  let msg = `*ORDER BARU - AHTA SIM RACING*\n`;
+  msg += `━━━━━━━━━━━━━━━━━━━━\n\n`;
+  msg += `🛠️ *Layanan:* ${currentService}\n`;
+  if (currentPrice > 0) msg += `💰 *Harga:* Rp ${currentPrice.toLocaleString('id-ID')}\n\n`;
+
+  msg += `👤 *Nama:* ${name}\n`;
+  msg += `📱 *WA:* ${wa}\n`;
+  if (city) msg += `📍 *Kota:* ${city}\n`;
+
+  msg += `\n🚗 *Wheel:* ${wheel}\n`;
+  msg += `🔧 *Metode:* ${method}\n`;
+  msg += `📅 *Jadwal:* ${when}\n`;
+  if (game) msg += `🎮 *Game:* ${game}\n`;
+  if (notes) msg += `\n📝 *Catatan:*\n${notes}\n`;
+  if (source) msg += `\n👀 *Tau dari:* ${source}\n`;
+
+  msg += `\n━━━━━━━━━━━━━━━━━━━━\n`;
+  msg += `Mohon diproses ya kak. Terima kasih! 🙏`;
+
+  // Encode dan buka WhatsApp
+  const encoded = encodeURIComponent(msg);
+  const url = `https://wa.me/${WA_NUMBER}?text=${encoded}`;
+
+  // Save to localStorage as backup (in case WA fails)
+  saveOrderBackup({
+    timestamp: new Date().toISOString(),
+    service: currentService,
+    price: currentPrice,
+    name, wa, city, wheel, method, when, game, notes, source
+  });
+
+  // Open WhatsApp in new tab
+  window.open(url, '_blank');
+
+  // Show success message
+  showSuccess();
+}
+
+function saveOrderBackup(order) {
+  try {
+    const KEY = 'ahta_pending_orders';
+    const list = JSON.parse(localStorage.getItem(KEY) || '[]');
+    list.push(order);
+    localStorage.setItem(KEY, JSON.stringify(list));
+  } catch (err) { /* ignore */ }
+}
+
+function showSuccess() {
+  const modal = document.querySelector('.modal');
+  modal.innerHTML = `
+    <button class="modal-close" onclick="closeOrderForm()">×</button>
+    <div style="text-align:center;padding:40px 20px">
+      <div style="font-size:64px;margin-bottom:16px">✅</div>
+      <h3 style="font-size:24px;margin-bottom:12px;color:#00ff88">Order Terkirim!</h3>
+      <p style="opacity:.85;margin-bottom:20px">
+        WhatsApp kamu akan terbuka dengan detail order. Klik <strong>Send</strong> di WA untuk konfirmasi.
+      </p>
+      <p style="font-size:13px;opacity:.7;margin-bottom:24px">
+        Saya balas dalam 30 menit di jam kerja (09.00-22.00 WIB).
+      </p>
+      <button onclick="closeOrderForm();location.reload()" style="background:#ff2d55;color:#fff;border:none;padding:12px 28px;border-radius:50px;font-weight:700;cursor:pointer;font-size:14px;font-family:inherit">
+        Tutup
+      </button>
+    </div>
+  `;
+}
+</script>
+
+</body>
+</html>

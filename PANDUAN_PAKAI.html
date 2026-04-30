@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Panduan Pakai — AHTA Business System</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; font-family: 'Segoe UI', system-ui, sans-serif; }
+body { background:#0a0a0f; color:#e8e8ec; padding:24px; line-height:1.6; }
+.wrap { max-width:900px; margin:0 auto; }
+
+.hero {
+  background: linear-gradient(135deg, #ff2d55, #ff6b35);
+  padding: 32px;
+  border-radius: 20px;
+  margin-bottom: 32px;
+}
+.hero h1 { font-size: 28px; font-weight: 900; margin-bottom: 8px; }
+.hero p { opacity: .9; }
+
+h2 {
+  font-size: 22px;
+  margin: 32px 0 16px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid #25252e;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+h3 { font-size: 17px; margin: 16px 0 8px; color: #ff8fa3; }
+p { margin-bottom: 12px; }
+
+.step {
+  background: #15151c;
+  border: 1px solid #25252e;
+  border-left: 4px solid #ff2d55;
+  padding: 18px 22px;
+  border-radius: 10px;
+  margin-bottom: 14px;
+}
+.step .num {
+  background: #ff2d55;
+  color: #fff;
+  font-weight: 900;
+  padding: 2px 10px;
+  border-radius: 50px;
+  font-size: 12px;
+  margin-right: 8px;
+}
+.step h4 { font-size: 16px; margin-bottom: 8px; }
+.step ul { padding-left: 24px; margin-top: 8px; }
+.step li { margin: 4px 0; font-size: 14px; opacity: .9; }
+
+code {
+  background: #1c1c25;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-family: 'Consolas', 'Courier New', monospace;
+  font-size: 13px;
+  color: #ff8fa3;
+}
+pre {
+  background: #1c1c25;
+  padding: 14px 18px;
+  border-radius: 8px;
+  overflow-x: auto;
+  font-family: 'Consolas', monospace;
+  font-size: 13px;
+  border-left: 3px solid #ff2d55;
+  margin: 12px 0;
+}
+
+table { width: 100%; border-collapse: collapse; margin: 16px 0; background: #15151c; border-radius: 10px; overflow: hidden; }
+th, td { padding: 12px 16px; text-align: left; border-bottom: 1px solid #25252e; font-size: 14px; }
+th { background: #1c1c25; font-size: 12px; text-transform: uppercase; letter-spacing: .5px; }
+
+.highlight {
+  background: linear-gradient(135deg, rgba(255,45,85,.1), rgba(255,107,53,.05));
+  border: 1px solid rgba(255,45,85,.4);
+  padding: 16px 20px;
+  border-radius: 10px;
+  margin: 16px 0;
+}
+.success { background: rgba(0,255,136,.08); border-color: rgba(0,255,136,.4); }
+.warning { background: rgba(255,212,59,.08); border-color: rgba(255,212,59,.4); }
+
+.btn-link {
+  display: inline-block;
+  background: linear-gradient(135deg, #ff2d55, #ff6b35);
+  color: #fff;
+  padding: 8px 16px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 13px;
+  margin: 4px 4px 4px 0;
+}
+.flow {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  align-items: center;
+  margin: 16px 0;
+}
+.flow .box {
+  background: #15151c;
+  border: 2px solid #ff2d55;
+  padding: 10px 14px;
+  border-radius: 10px;
+  font-weight: 700;
+  font-size: 13px;
+}
+.flow .arrow { color: #ff2d55; font-size: 20px; font-weight: 900; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="hero">
+  <h1>📘 PANDUAN AHTA BUSINESS SYSTEM</h1>
+  <p>Sistem siap-pakai buat ngelola jasa sim racing service kamu. 4 file, 1 sistem terintegrasi.</p>
+</div>
+
+<h2>📁 Isi Sistem</h2>
+<table>
+  <thead>
+    <tr><th>File</th><th>Untuk Apa</th><th>Audience</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><code>landing_page.html</code></td><td>Halaman pricing + order buttons</td><td>🌍 Public (customer)</td></tr>
+    <tr><td><code>order_tracker.html</code></td><td>Dashboard kelola order</td><td>🔒 Private (kamu)</td></tr>
+    <tr><td><code>wa_templates.txt</code></td><td>Template balas WhatsApp</td><td>🔒 Private (kamu)</td></tr>
+    <tr><td><code>PANDUAN_PAKAI.html</code></td><td>File ini — panduan</td><td>🔒 Private (kamu)</td></tr>
+  </tbody>
+</table>
+
+<h2>🔄 Flow Sistem</h2>
+<div class="flow">
+  <div class="box">TikTok Bio</div>
+  <span class="arrow">→</span>
+  <div class="box">Landing Page</div>
+  <span class="arrow">→</span>
+  <div class="box">Klik WhatsApp</div>
+  <span class="arrow">→</span>
+  <div class="box">Order Tracker</div>
+  <span class="arrow">→</span>
+  <div class="box">💰 Cuan</div>
+</div>
+
+<h2>🚀 Setup Awal — 30 Menit</h2>
+
+<div class="step">
+  <span class="num">1</span><strong>Edit nomor WA di landing page</strong>
+  <p style="margin-top:8px">Buka <code>landing_page.html</code> pakai Notepad atau VSCode. Cari semua <code>62XXXXXXXXXX</code> dan ganti dengan nomor WA kamu (format Indonesia tanpa angka 0 depan).</p>
+  <p>Contoh: HP <code>0812-3456-7890</code> → ganti jadi <code>6281234567890</code></p>
+  <p>Total ada ~7 link wa.me yang harus di-ganti. Pakai <strong>Find &amp; Replace (Ctrl+H)</strong> biar cepat.</p>
+</div>
+
+<div class="step">
+  <span class="num">2</span><strong>Test landing page lokal</strong>
+  <p style="margin-top:8px">Double-click <code>landing_page.html</code> — akan kebuka di browser. Test:</p>
+  <ul>
+    <li>Klik tombol "Order via WhatsApp" → harusnya buka WhatsApp Web/app dengan pesan ke nomor kamu</li>
+    <li>Klik tombol Tiktok/IG/Saweria → arahkan ke akun kamu</li>
+    <li>Cek di mobile: tampilannya harus tetap rapi</li>
+  </ul>
+</div>
+
+<div class="step">
+  <span class="num">3</span><strong>Upload landing page ke internet (HOSTING GRATIS)</strong>
+  <p style="margin-top:8px">Pilih salah satu (paling mudah):</p>
+
+  <h3>Option A: Netlify Drop (paling cepat — 1 menit)</h3>
+  <ul>
+    <li>Buka <a href="https://app.netlify.com/drop" class="btn-link">app.netlify.com/drop</a></li>
+    <li>Drag &amp; drop file <code>landing_page.html</code> ke kotak besar</li>
+    <li>Tunggu 5 detik — dapat URL: <code>random-name-12345.netlify.app</code></li>
+    <li>Copy URL ini</li>
+    <li>(Opsional) Sign up free → custom subdomain jadi <code>ahta-service.netlify.app</code></li>
+  </ul>
+
+  <h3>Option B: Beli domain (paling pro — Rp 150K/tahun)</h3>
+  <ul>
+    <li>Beli domain <code>ahta.id</code> atau <code>ahtaservice.com</code> di Niagahoster/Domainesia</li>
+    <li>Connect ke Netlify (panduan bawaan)</li>
+    <li>URL kamu jadi: <code>ahta.id</code></li>
+  </ul>
+</div>
+
+<div class="step">
+  <span class="num">4</span><strong>Pasang link di bio TikTok @ahtaaa_</strong>
+  <p style="margin-top:8px">Buka TikTok → Edit Profile</p>
+  <ul>
+    <li><strong>Bio</strong> (max 80 char):</li>
+  </ul>
+  <pre>🛠️ Setup wheel: 75K
+🎮 Install game: 50K
+📦 PAKET: 250K (hemat!)
+📩 Order ↓</pre>
+  <ul>
+    <li><strong>Website / Link</strong>: paste URL Netlify/domain kamu</li>
+  </ul>
+</div>
+
+<div class="step">
+  <span class="num">5</span><strong>Setup WhatsApp Business + Auto Reply</strong>
+  <p style="margin-top:8px">Install <strong>WhatsApp Business</strong> (Play Store / App Store, gratis):</p>
+  <ul>
+    <li>Settings → Business Tools → <strong>Greeting message</strong> → aktifkan</li>
+    <li>Paste template #1 dari <code>wa_templates.txt</code></li>
+    <li>Settings → <strong>Quick Replies</strong> → tambah shortcut buat template lain</li>
+  </ul>
+</div>
+
+<div class="step">
+  <span class="num">6</span><strong>Bookmark order_tracker.html di browser</strong>
+  <p style="margin-top:8px">Double-click <code>order_tracker.html</code> → Ctrl+D (bookmark)</p>
+  <p>Setiap dapat order baru, buka tracker → Add Order → simpan.</p>
+  <div class="warning highlight">
+    ⚠️ Data tracker disimpan di <strong>localStorage browser</strong>. Jangan clear browser data tanpa Export Backup dulu!
+  </div>
+</div>
+
+<h2>📅 Workflow Harian</h2>
+
+<div class="step">
+  <span class="num">A</span><strong>Pagi (09:00) — Cek Order</strong>
+  <ul>
+    <li>Buka <code>order_tracker.html</code></li>
+    <li>Lihat pending orders dari kemarin</li>
+    <li>Balas yang belum direspon</li>
+  </ul>
+</div>
+
+<div class="step">
+  <span class="num">B</span><strong>Siang (13:00) — Eksekusi</strong>
+  <ul>
+    <li>Garap order yang udah DP</li>
+    <li>Update status di tracker: pending → in progress → done</li>
+    <li>Setelah selesai, kirim template #6 (DONE message)</li>
+  </ul>
+</div>
+
+<div class="step">
+  <span class="num">C</span><strong>Sore (17:00) — Konten</strong>
+  <ul>
+    <li>Bikin 1 video promo jasa untuk @ahtaaa_</li>
+    <li>Post + caption pakai template</li>
+    <li>Live di TikTok (recorded loop tetap jalan)</li>
+  </ul>
+</div>
+
+<div class="step">
+  <span class="num">D</span><strong>Malam (21:00) — Wrap Up</strong>
+  <ul>
+    <li>Update tracker dengan order baru</li>
+    <li>Backup data (Export JSON tiap minggu)</li>
+    <li>Aktifkan Away Message WhatsApp</li>
+  </ul>
+</div>
+
+<h2>📊 Target Metrics Realistis</h2>
+<table>
+  <thead>
+    <tr><th>Periode</th><th>Order/hari</th><th>Revenue/hari</th><th>Revenue/bulan</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Minggu 1</td><td>1-2</td><td>Rp 100-200K</td><td>~Rp 3-6jt</td></tr>
+    <tr><td>Bulan 1</td><td>3-5</td><td>Rp 300-700K</td><td>~Rp 9-21jt</td></tr>
+    <tr><td>Bulan 3</td><td>5-10</td><td>Rp 500K-1.5jt</td><td>~Rp 15-45jt</td></tr>
+    <tr><td>Bulan 6</td><td>10-15</td><td>Rp 1-3jt</td><td>~Rp 30-90jt</td></tr>
+  </tbody>
+</table>
+
+<div class="success highlight">
+  💡 <strong>Ini realistis</strong> kalau kamu konsisten:
+  <ul style="margin-top:8px">
+    <li>Posting 1-2 video promo jasa per hari di @ahtaaa_</li>
+    <li>Balas DM customer dalam 30 menit</li>
+    <li>Quality kerja konsisten (testimoni naik)</li>
+    <li>Live 24/7 tetap jalan (passive reach)</li>
+  </ul>
+</div>
+
+<h2>🚨 Pitfalls — Hindari Ini</h2>
+
+<table>
+  <thead>
+    <tr><th>Kesalahan</th><th>Akibat</th><th>Solusi</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Lambat balas DM (>1 jam)</td><td>Customer cancel, cari tempat lain</td><td>Pakai auto-reply + notifikasi WA</td></tr>
+    <tr><td>Harga ga jelas, nawar terus</td><td>Waste time, customer ga jadi</td><td>Landing page dengan harga tegas</td></tr>
+    <tr><td>Kerja tanpa DP</td><td>Customer kabur setelah selesai</td><td>WAJIB DP 50% di awal</td></tr>
+    <tr><td>Lupa update tracker</td><td>Data berantakan, lost revenue</td><td>Update tracker setiap selesai 1 order</td></tr>
+    <tr><td>Ga backup data</td><td>Hilang semua kalau browser issue</td><td>Export JSON tiap Minggu malam</td></tr>
+    <tr><td>Janji jadwal yang kepadatan</td><td>Customer komplain, rating drop</td><td>Max 5 order/hari, slot realistis</td></tr>
+  </tbody>
+</table>
+
+<h2>🎯 Pro Tips</h2>
+
+<div class="step">
+  <h4>1. Up-sell ke @mozacare shop</h4>
+  <p>Setelah customer puas dengan jasa kamu, tawarin upgrade gear:</p>
+  <pre>"Wheel-mu udah maksimal, tapi pedal-nya masih basic ya?
+Coba upgrade ke pedal load cell, kerasa beda banget.
+Cek di shop saya @mozacare ada diskon 10% buat customer:
+kode 'AHTA10' pas checkout."</pre>
+</div>
+
+<div class="step">
+  <h4>2. Repeat customer = goldmine</h4>
+  <p>Setelah 1 bulan, follow up customer lama. Tawarin:</p>
+  <ul>
+    <li>Tune-up FFB ulang (preset season baru)</li>
+    <li>Mod terbaru</li>
+    <li>Setup buat game baru rilis</li>
+  </ul>
+  <p>20% repeat customer = revenue stable tanpa effort marketing baru.</p>
+</div>
+
+<div class="step">
+  <h4>3. Bundle dengan akun @mozacare</h4>
+  <p>Beli wheel di @mozacare = setup gratis dari @ahtaaa_</p>
+  <p>Strategi: customer bayar wheel + setup sekaligus. Convert higher karena value.</p>
+</div>
+
+<div class="step">
+  <h4>4. Bikin testimoni jadi konten</h4>
+  <p>Setiap customer puas → minta testi → screenshot → upload jadi video TikTok.</p>
+  <p>Format: "Customer ke-[N] — setup G29 di Jakarta. Hasilnya:" + clip before/after.</p>
+  <p>Social proof = lebih banyak customer baru.</p>
+</div>
+
+<div class="step">
+  <h4>5. Naikin harga setiap 3 bulan</h4>
+  <p>Quarter 1: Rp 75K (sekarang)<br>
+  Quarter 2: Rp 100K (after 30+ testimoni)<br>
+  Quarter 3: Rp 150K (after build authority)<br>
+  Quarter 4: Rp 200K (after exclusive partnership brand)</p>
+  <p>Customer baru bayar lebih, customer lama dapat "loyalty price" — win-win.</p>
+</div>
+
+<h2>📞 Need Help?</h2>
+<div class="highlight">
+  <p>Kalau ada bug di file HTML atau ada pertanyaan teknis, edit di Notepad atau VSCode (gratis di code.visualstudio.com).</p>
+  <p>File <code>landing_page.html</code> bisa di-customize:</p>
+  <ul>
+    <li>Ganti warna: search <code>#ff2d55</code> dan <code>#ff6b35</code></li>
+    <li>Ganti foto/logo: tambah tag <code>&lt;img&gt;</code> di section .hero</li>
+    <li>Tambah produk baru: copy block <code>price-card</code></li>
+  </ul>
+</div>
+
+<div style="text-align:center;padding:40px 0 20px;opacity:.5;font-size:13px">
+  AHTA Sim Racing Service · Built with ❤️ for income stability<br>
+  Versi 1.0 — 30 April 2026
+</div>
+
+</div>
+</body>
+</html>
